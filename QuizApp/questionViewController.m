@@ -48,7 +48,8 @@
             NSMutableArray *help2 = (NSMutableArray *)help[@"questions"];
             for (NSDictionary *help3 in help2) {
                 NSMutableDictionary *help4 = [help3 mutableCopy];
-                [help4 setObject:@"-1" forKey:@"answer"];
+                NSMutableArray *answerArray = [[NSMutableArray alloc] initWithObjects:@"-1", nil];
+                [help4 setObject:answerArray forKey:@"answer"];
                 NSLog(@"%@",help4);
                 [questionArray addObject:help4];
             }
@@ -57,7 +58,7 @@
             questionView.backgroundColor = [GlobalFn getColor:0];
             [questionView setFont:[UIFont systemFontOfSize:17]];
             questionView.textColor = [UIColor whiteColor];
-            if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+            if ([questionArray[[quesNo integerValue]][@"type"] integerValue] <= 2) {
                 quesTable.hidden = NO;
             }
             else {
@@ -87,7 +88,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //NSLog(@"From table %lu",(unsigned long)[questionArray[[quesNo integerValue]][@"options"] count]);
     if ([questionArray count]>0) {
-        if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+        if ([questionArray[[quesNo integerValue]][@"type"] integerValue] <= 2) {
             return [questionArray[[quesNo integerValue]][@"options"] count];
         }
     }
@@ -112,13 +113,26 @@
     
     cell.backgroundColor = [UIColor clearColor];
     cell.selectButton.tag = indexPath.row;
-    if(cell.selectButton.tag == [questionArray[[quesNo integerValue]][@"answer"] integerValue]) {
-        cell.optionImage.image = [UIImage imageNamed:@"fullCircleIndigoIcon.png"];
+    if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+        if([questionArray[[quesNo integerValue]][@"answer"] containsObject:[NSString stringWithFormat:@"%ld",(long)cell.selectButton.tag]]) {
+            cell.optionImage.image = [UIImage imageNamed:@"fullCircleIndigoIcon.png"];
+        }
+        else {
+            cell.optionImage.image = [UIImage imageNamed:@"zeroCircleIndigoIcon.png"];
+        }
+        [cell.selectButton addTarget:self action:@selector(mcqButAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else {
-        cell.optionImage.image = [UIImage imageNamed:@"zeroCircleIndigoIcon.png"];
+    else if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 2) {
+        //if(cell.selectButton.tag == [questionArray[[quesNo integerValue]][@"answer"] integerValue]) {
+        if([questionArray[[quesNo integerValue]][@"answer"] containsObject:[NSString stringWithFormat:@"%ld",(long)cell.selectButton.tag]]) {
+            cell.optionImage.image = [UIImage imageNamed:@"checkIndigoIcon.png"];
+        }
+        else {
+            cell.optionImage.image = [UIImage imageNamed:@"uncheckIndigoIcon.png"];
+        }
+        [cell.selectButton addTarget:self action:@selector(mcqButAction:) forControlEvents:UIControlEventTouchUpInside];
     }
-    [cell.selectButton addTarget:self action:@selector(mcqButAction:) forControlEvents:UIControlEventTouchUpInside];
+    
 
     NSString *labelText = questionArray[[quesNo integerValue]][@"options"][indexPath.row][@"text"];
     [cell.optionLabel setText:labelText];
@@ -131,13 +145,15 @@
 
 -(IBAction)mcqButAction:(id)sender {
     UIButton* myButton = (UIButton*)sender;
-    questionArray[[quesNo integerValue]][@"answer"] = [NSString stringWithFormat:@"%ld", (long)myButton.tag];
+    if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+        questionArray[[quesNo integerValue]][@"answer"] = [[NSMutableArray alloc] initWithObjects:@"-1", nil];
+    }
+    [questionArray[[quesNo integerValue]][@"answer"] addObject:[NSString stringWithFormat:@"%ld", (long)myButton.tag]];
     [quesTable reloadData];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [questionArray[[quesNo integerValue]][@"height"] floatValue]+40;
-    //return 100;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,7 +171,7 @@
     questionView.textColor = [UIColor whiteColor];
     prevButton.enabled = YES;
     prevButton.hidden = NO;
-    if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+    if ([questionArray[[quesNo integerValue]][@"type"] integerValue] <= 2) {
         quesTable.hidden = NO;
     }
     else {
@@ -165,7 +181,7 @@
 }
 
 -(IBAction)clearAction:(id)sender {
-    questionArray[[quesNo integerValue]][@"answer"] = @"-1";
+    questionArray[[quesNo integerValue]][@"answer"] = [[NSMutableArray alloc] initWithObjects:@"-1", nil];
     [quesTable reloadData];
 }
 
@@ -182,13 +198,14 @@
     questionView.textColor = [UIColor whiteColor];
     nextButton.enabled = YES;
     nextButton.hidden = NO;
-    if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+    if ([questionArray[[quesNo integerValue]][@"type"] integerValue] <= 2) {
         quesTable.hidden = NO;
     }
     else {
         quesTable.hidden = YES;
     }
-    [quesTable reloadData];}
+    [quesTable reloadData];
+}
 
 -(IBAction)submitAction:(id)sender {
     for(int i=0;i<[questionArray count];i++) {

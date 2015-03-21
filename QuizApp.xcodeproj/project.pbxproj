@@ -28,6 +28,8 @@
 		B374F4EB1AB172F00094A645 /* multiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B374F4E91AB172F00094A645 /* multiCell.m */; };
 		B374F4EC1AB172F00094A645 /* multiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B374F4EA1AB172F00094A645 /* multiCell.xib */; };
 		B39133A21ABDA87200AFA252 /* File in Resources */ = {isa = PBXBuildFile; fileRef = B39133A11ABDA87200AFA252 /* File */; };
+		B39133A51ABDA99D00AFA252 /* uncheckIndigoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B39133A31ABDA99D00AFA252 /* uncheckIndigoIcon.png */; };
+		B39133A61ABDA99D00AFA252 /* checkIndigoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B39133A41ABDA99D00AFA252 /* checkIndigoIcon.png */; };
 		B3B9538A1A8A340A002A8541 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B953891A8A340A002A8541 /* main.m */; };
 		B3B9538D1A8A340A002A8541 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B9538C1A8A340A002A8541 /* AppDelegate.m */; };
 		B3B953931A8A340A002A8541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B953911A8A340A002A8541 /* Main.storyboard */; };
@@ -83,6 +85,8 @@
 		B374F4E91AB172F00094A645 /* multiCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = multiCell.m; sourceTree = "<group>"; };
 		B374F4EA1AB172F00094A645 /* multiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = multiCell.xib; sourceTree = "<group>"; };
 		B39133A11ABDA87200AFA252 /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
+		B39133A31ABDA99D00AFA252 /* uncheckIndigoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheckIndigoIcon.png; sourceTree = "<group>"; };
+		B39133A41ABDA99D00AFA252 /* checkIndigoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkIndigoIcon.png; sourceTree = "<group>"; };
 		B3B953841A8A340A002A8541 /* QuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B953881A8A340A002A8541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3B953891A8A340A002A8541 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 		B370AE071AA3A85900E369A3 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				B39133A31ABDA99D00AFA252 /* uncheckIndigoIcon.png */,
+				B39133A41ABDA99D00AFA252 /* checkIndigoIcon.png */,
 				B307B3051AB1950000E7953A /* zeroCircleIndigoIcon.png */,
 				B307B3061AB1950000E7953A /* fullCircleIndigoIcon.png */,
 				B3C39D3F1AA599D0008C40FA /* fullCircleTealIcon.png */,
@@ -370,7 +376,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B39133A51ABDA99D00AFA252 /* uncheckIndigoIcon.png in Resources */,
 				B3B953931A8A340A002A8541 /* Main.storyboard in Resources */,
+				B39133A61ABDA99D00AFA252 /* checkIndigoIcon.png in Resources */,
 				B370AE091AA3A86200E369A3 /* backIconWhite.png in Resources */,
 				B374F4E71AAEF6470094A645 /* mcqCell.xib in Resources */,
 				B39133A21ABDA87200AFA252 /* File in Resources */,

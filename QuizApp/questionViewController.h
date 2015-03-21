@@ -18,6 +18,7 @@
     IBOutlet UIButton *prevButton;
     IBOutlet UIButton *submitButton;
     IBOutlet UIButton *clearButton;
+    IBOutlet UITextView *ansView;
     NSString *quesNo;
     NSMutableArray *arrayHelp;
     NSMutableArray *questionArray;
