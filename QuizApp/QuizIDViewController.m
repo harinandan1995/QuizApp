@@ -41,7 +41,7 @@
     [self.view addGestureRecognizer:tap];
     loading.hidden = YES;
     
-    quizIdField.text = @"CS101:1";
+    quizIdField.text = @"CS101:3";
 }
 
 -(void)dismissKeyboard {

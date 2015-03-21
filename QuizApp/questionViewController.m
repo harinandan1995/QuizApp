@@ -28,41 +28,13 @@
     [submitButton setTitleColor:[GlobalFn getColor:1] forState:UIControlStateNormal];
     [clearButton setTitleColor:[GlobalFn getColor:1] forState:UIControlStateNormal];
     
-    //qNoLabel.textColor = [GlobalFn getColor:0];
-    quesTable.delegate = self;
-    quesTable.dataSource = self;
     quesNo = @"0";
     
+    quesTable.delegate = self;
+    quesTable.dataSource = self;
     prevButton.hidden = YES;
     prevButton.enabled = NO;
-    
     questionArray = [[NSMutableArray alloc] init];
-    NSMutableDictionary *help = [[NSMutableDictionary alloc] init];
-    [help setObject:@"1" forKey:@"qid"];
-    [help setObject:@"1a" forKey:@"ques_no"];
-    [help setObject:@"The United Nations was founded on _________." forKey:@"ques"];
-    [help setObject:@"mcq" forKey:@"type"];
-    [help setObject:@"1" forKey:@"correct_options"];
-    arrayHelp = [[NSMutableArray alloc] initWithObjects:@"March 24, 1945",@"October 24, 1945",@"March 24, 1949",@"October 24, 1950", nil];
-    [help setObject:arrayHelp forKey:@"options"];
-    [help setObject:@"-1" forKey:@"answer"];
-    [questionArray addObject:help];
-    help = [[NSMutableDictionary alloc] init];
-    [help setObject:@"1" forKey:@"qid"];
-    [help setObject:@"1b" forKey:@"ques_no"];
-    [help setObject:@"A body of mass 100 gram, tied at the end of a string of length 3 m rotates in a vertical circle and is just able to complete the circle. If the tension in the string at its lowest point is 3.7 N, then its angular velocity will be ______ (g = 10 m/s2)" forKey:@"ques"];
-    [help setObject:@"mcq" forKey:@"type"];
-    [help setObject:@"1" forKey:@"correct_options"];
-    arrayHelp = [[NSMutableArray alloc] initWithObjects:@"Has constant velocity.",@"Has no acceleration", @"Has an inward acceleration", @"Has an outward radial acceleration", nil];
-    [help setObject:arrayHelp forKey:@"options"];
-    [help setObject:@"-1" forKey:@"answer"];
-    [questionArray addObject:help];
-    
-    qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"ques_no"]];
-    questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"ques"]];
-    questionView.backgroundColor = [GlobalFn getColor:0];
-    [questionView setFont:[UIFont systemFontOfSize:17]];
-    questionView.textColor = [UIColor whiteColor];
     
     NSDictionary *parameters = @{@"quiz_id":_quizID,@"uniq_id":_uniqueID,@"key":@"123"};
     NSLog(@"Param : %@",parameters);
@@ -73,7 +45,25 @@
         NSDictionary *help = (NSDictionary *) responseObject;
         NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
         if ([errormsg isEqualToString:@"0"]) {
-            
+            NSMutableArray *help2 = (NSMutableArray *)help[@"questions"];
+            for (NSDictionary *help3 in help2) {
+                NSMutableDictionary *help4 = [help3 mutableCopy];
+                [help4 setObject:@"-1" forKey:@"answer"];
+                NSLog(@"%@",help4);
+                [questionArray addObject:help4];
+            }
+            qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+            questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"question"]];
+            questionView.backgroundColor = [GlobalFn getColor:0];
+            [questionView setFont:[UIFont systemFontOfSize:17]];
+            questionView.textColor = [UIColor whiteColor];
+            if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+                quesTable.hidden = NO;
+            }
+            else {
+                quesTable.hidden = YES;
+            }
+            [quesTable reloadData];
         }
         else {
             [self.view makeToast:help[@"message"]];
@@ -96,7 +86,12 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //NSLog(@"From table %lu",(unsigned long)[questionArray[[quesNo integerValue]][@"options"] count]);
-    return [questionArray[[quesNo integerValue]][@"options"] count];
+    if ([questionArray count]>0) {
+        if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+            return [questionArray[[quesNo integerValue]][@"options"] count];
+        }
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -125,7 +120,7 @@
     }
     [cell.selectButton addTarget:self action:@selector(mcqButAction:) forControlEvents:UIControlEventTouchUpInside];
 
-    NSString *labelText = questionArray[[quesNo integerValue]][@"options"][indexPath.row];
+    NSString *labelText = questionArray[[quesNo integerValue]][@"options"][indexPath.row][@"text"];
     [cell.optionLabel setText:labelText];
     [cell.optionLabel sizeToFit];
     [cell.contentView addSubview:cell.optionLabel];
@@ -148,18 +143,24 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -(IBAction)nextAction:(id)sender {
-    quesNo = [NSString stringWithFormat:@"%ld",[quesNo integerValue]+1];
+    quesNo = [NSString stringWithFormat:@"%d",[quesNo integerValue]+1];
     if([quesNo integerValue] == [questionArray count]-1){
         nextButton.enabled = NO;
         nextButton.hidden = YES;
     }
-    qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"ques_no"]];
-    questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"ques"]];
+    qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+    questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"question"]];
     questionView.backgroundColor = [GlobalFn getColor:0];
     [questionView setFont:[UIFont systemFontOfSize:17]];
     questionView.textColor = [UIColor whiteColor];
     prevButton.enabled = YES;
     prevButton.hidden = NO;
+    if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+        quesTable.hidden = NO;
+    }
+    else {
+        quesTable.hidden = YES;
+    }
     [quesTable reloadData];
 }
 
@@ -169,20 +170,25 @@
 }
 
 -(IBAction)prevAction:(id)sender {
-    quesNo = [NSString stringWithFormat:@"%ld",[quesNo integerValue]-1];
+    quesNo = [NSString stringWithFormat:@"%d",[quesNo integerValue]-1];
     if([quesNo integerValue] == 0){
         prevButton.enabled = NO;
         prevButton.hidden = YES;
     }
-    qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"ques_no"]];
-    questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"ques"]];
+    qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+    questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"question"]];
     questionView.backgroundColor = [GlobalFn getColor:0];
     [questionView setFont:[UIFont systemFontOfSize:17]];
     questionView.textColor = [UIColor whiteColor];
     nextButton.enabled = YES;
     nextButton.hidden = NO;
-    [quesTable reloadData];
-}
+    if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
+        quesTable.hidden = NO;
+    }
+    else {
+        quesTable.hidden = YES;
+    }
+    [quesTable reloadData];}
 
 -(IBAction)submitAction:(id)sender {
     for(int i=0;i<[questionArray count];i++) {
@@ -199,9 +205,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    // the user clicked OK
     if (buttonIndex == 1) {
-        // do something here...
         [self.view makeToast:@"Thanks for submitting"];
     }
 }
