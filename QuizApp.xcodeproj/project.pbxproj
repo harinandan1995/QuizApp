@@ -7,13 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B307B3071AB1950100E7953A /* zeroCircleIndigoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B307B3051AB1950000E7953A /* zeroCircleIndigoIcon.png */; };
+		B307B3081AB1950100E7953A /* fullCircleIndigoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B307B3061AB1950000E7953A /* fullCircleIndigoIcon.png */; };
+		B32E21DE1A8A4DFE0010815D /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B32E21DD1A8A4DFE0010815D /* LoginViewController.m */; };
+		B32E21E11A8A7ED20010815D /* PasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B32E21E01A8A7ED20010815D /* PasscodeViewController.m */; };
+		B370ADE81AA37E7400E369A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADE71AA37E7400E369A3 /* Foundation.framework */; };
+		B370ADEA1AA37E8200E369A3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADE91AA37E8200E369A3 /* CoreData.framework */; };
+		B370ADEC1AA37E8B00E369A3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADEB1AA37E8B00E369A3 /* CoreLocation.framework */; };
+		B370ADF21AA380CB00E369A3 /* GlobalFn.m in Sources */ = {isa = PBXBuildFile; fileRef = B370ADF11AA380CB00E369A3 /* GlobalFn.m */; };
+		B370ADF41AA380F000E369A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADF31AA380F000E369A3 /* UIKit.framework */; };
+		B370ADF61AA380F700E369A3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADF51AA380F700E369A3 /* CoreGraphics.framework */; };
+		B370ADF81AA3810000E369A3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADF71AA3810000E369A3 /* AVFoundation.framework */; };
+		B370ADFA1AA3811200E369A3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADF91AA3811200E369A3 /* Security.framework */; };
+		B370ADFC1AA3811A00E369A3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADFB1AA3811A00E369A3 /* SystemConfiguration.framework */; };
+		B370ADFE1AA3811F00E369A3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B370ADFD1AA3811F00E369A3 /* CFNetwork.framework */; };
+		B370AE021AA3A25D00E369A3 /* QuizIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B370AE011AA3A25D00E369A3 /* QuizIDViewController.m */; };
+		B370AE091AA3A86200E369A3 /* backIconWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = B370AE081AA3A86200E369A3 /* backIconWhite.png */; };
+		B374F4E61AAEF6470094A645 /* mcqCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B374F4E41AAEF6470094A645 /* mcqCell.m */; };
+		B374F4E71AAEF6470094A645 /* mcqCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B374F4E51AAEF6470094A645 /* mcqCell.xib */; };
+		B374F4EB1AB172F00094A645 /* multiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B374F4E91AB172F00094A645 /* multiCell.m */; };
+		B374F4EC1AB172F00094A645 /* multiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B374F4EA1AB172F00094A645 /* multiCell.xib */; };
 		B3B9538A1A8A340A002A8541 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B953891A8A340A002A8541 /* main.m */; };
 		B3B9538D1A8A340A002A8541 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B9538C1A8A340A002A8541 /* AppDelegate.m */; };
-		B3B953901A8A340A002A8541 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B9538F1A8A340A002A8541 /* ViewController.m */; };
 		B3B953931A8A340A002A8541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B953911A8A340A002A8541 /* Main.storyboard */; };
 		B3B953951A8A340A002A8541 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B953941A8A340A002A8541 /* Images.xcassets */; };
 		B3B953981A8A340A002A8541 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B953961A8A340A002A8541 /* LaunchScreen.xib */; };
 		B3B953A41A8A340A002A8541 /* QuizAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B953A31A8A340A002A8541 /* QuizAppTests.m */; };
+		B3C39D411AA599D0008C40FA /* fullCircleTealIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C39D3F1AA599D0008C40FA /* fullCircleTealIcon.png */; };
+		B3C39D421AA599D0008C40FA /* zeroCircleTealIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C39D401AA599D0008C40FA /* zeroCircleTealIcon.png */; };
+		B3DFEEB01AA4B56C00172538 /* questionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DFEEAF1AA4B56C00172538 /* questionViewController.m */; };
+		B3DFEEB31AA4B97200172538 /* checkedTealIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B3DFEEB11AA4B97200172538 /* checkedTealIcon.png */; };
+		B3DFEEB41AA4B97200172538 /* uncheckedTealIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B3DFEEB21AA4B97200172538 /* uncheckedTealIcon.png */; };
+		CE201850B5D4F4AB837715C6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2042A4BC79C8258E0FAFA0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,19 +52,52 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A2042A4BC79C8258E0FAFA0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		86254B8ADA2B11D9FEB85E45 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8898EA495A48A0657DC75DA3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B307B3051AB1950000E7953A /* zeroCircleIndigoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zeroCircleIndigoIcon.png; sourceTree = "<group>"; };
+		B307B3061AB1950000E7953A /* fullCircleIndigoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullCircleIndigoIcon.png; sourceTree = "<group>"; };
+		B32E21DC1A8A4DFE0010815D /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B32E21DD1A8A4DFE0010815D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		B32E21DF1A8A7ED20010815D /* PasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeViewController.h; sourceTree = "<group>"; };
+		B32E21E01A8A7ED20010815D /* PasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasscodeViewController.m; sourceTree = "<group>"; };
+		B370ADE71AA37E7400E369A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B370ADE91AA37E8200E369A3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		B370ADEB1AA37E8B00E369A3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B370ADF01AA380CB00E369A3 /* GlobalFn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFn.h; sourceTree = "<group>"; };
+		B370ADF11AA380CB00E369A3 /* GlobalFn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalFn.m; sourceTree = "<group>"; };
+		B370ADF31AA380F000E369A3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B370ADF51AA380F700E369A3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B370ADF71AA3810000E369A3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B370ADF91AA3811200E369A3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B370ADFB1AA3811A00E369A3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B370ADFD1AA3811F00E369A3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		B370AE001AA3A25D00E369A3 /* QuizIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizIDViewController.h; sourceTree = "<group>"; };
+		B370AE011AA3A25D00E369A3 /* QuizIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizIDViewController.m; sourceTree = "<group>"; };
+		B370AE081AA3A86200E369A3 /* backIconWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backIconWhite.png; sourceTree = "<group>"; };
+		B374F4E31AAEF6470094A645 /* mcqCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mcqCell.h; sourceTree = "<group>"; };
+		B374F4E41AAEF6470094A645 /* mcqCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mcqCell.m; sourceTree = "<group>"; };
+		B374F4E51AAEF6470094A645 /* mcqCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mcqCell.xib; sourceTree = "<group>"; };
+		B374F4E81AB172F00094A645 /* multiCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multiCell.h; sourceTree = "<group>"; };
+		B374F4E91AB172F00094A645 /* multiCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = multiCell.m; sourceTree = "<group>"; };
+		B374F4EA1AB172F00094A645 /* multiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = multiCell.xib; sourceTree = "<group>"; };
 		B3B953841A8A340A002A8541 /* QuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B953881A8A340A002A8541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3B953891A8A340A002A8541 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B3B9538B1A8A340A002A8541 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B3B9538C1A8A340A002A8541 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B3B9538E1A8A340A002A8541 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B3B9538F1A8A340A002A8541 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B3B953921A8A340A002A8541 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B3B953941A8A340A002A8541 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B3B953971A8A340A002A8541 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B3B9539D1A8A340A002A8541 /* QuizAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B953A21A8A340A002A8541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3B953A31A8A340A002A8541 /* QuizAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuizAppTests.m; sourceTree = "<group>"; };
+		B3C39D3F1AA599D0008C40FA /* fullCircleTealIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullCircleTealIcon.png; sourceTree = "<group>"; };
+		B3C39D401AA599D0008C40FA /* zeroCircleTealIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zeroCircleTealIcon.png; sourceTree = "<group>"; };
+		B3DFEEAE1AA4B56C00172538 /* questionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = questionViewController.h; sourceTree = "<group>"; };
+		B3DFEEAF1AA4B56C00172538 /* questionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = questionViewController.m; sourceTree = "<group>"; };
+		B3DFEEB11AA4B97200172538 /* checkedTealIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkedTealIcon.png; sourceTree = "<group>"; };
+		B3DFEEB21AA4B97200172538 /* uncheckedTealIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheckedTealIcon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +105,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B370ADFE1AA3811F00E369A3 /* CFNetwork.framework in Frameworks */,
+				B370ADFC1AA3811A00E369A3 /* SystemConfiguration.framework in Frameworks */,
+				B370ADFA1AA3811200E369A3 /* Security.framework in Frameworks */,
+				B370ADF81AA3810000E369A3 /* AVFoundation.framework in Frameworks */,
+				B370ADF61AA380F700E369A3 /* CoreGraphics.framework in Frameworks */,
+				B370ADF41AA380F000E369A3 /* UIKit.framework in Frameworks */,
+				B370ADEC1AA37E8B00E369A3 /* CoreLocation.framework in Frameworks */,
+				B370ADEA1AA37E8200E369A3 /* CoreData.framework in Frameworks */,
+				B370ADE81AA37E7400E369A3 /* Foundation.framework in Frameworks */,
+				CE201850B5D4F4AB837715C6 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +128,102 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C687C7675ABE1A5009F7065 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B370ADFD1AA3811F00E369A3 /* CFNetwork.framework */,
+				B370ADFB1AA3811A00E369A3 /* SystemConfiguration.framework */,
+				B370ADF91AA3811200E369A3 /* Security.framework */,
+				B370ADF71AA3810000E369A3 /* AVFoundation.framework */,
+				B370ADF51AA380F700E369A3 /* CoreGraphics.framework */,
+				B370ADF31AA380F000E369A3 /* UIKit.framework */,
+				B370ADEB1AA37E8B00E369A3 /* CoreLocation.framework */,
+				B370ADE91AA37E8200E369A3 /* CoreData.framework */,
+				B370ADE71AA37E7400E369A3 /* Foundation.framework */,
+				2A2042A4BC79C8258E0FAFA0 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		569C2E0D15EE896D4022EB1A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8898EA495A48A0657DC75DA3 /* Pods.debug.xcconfig */,
+				86254B8ADA2B11D9FEB85E45 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B32E21DB1A8A4DE10010815D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B3DFEEAA1AA4B4AA00172538 /* Quiz */,
+				B370ADFF1AA3A23200E369A3 /* Authentication */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B370ADFF1AA3A23200E369A3 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B32E21DC1A8A4DFE0010815D /* LoginViewController.h */,
+				B32E21DD1A8A4DFE0010815D /* LoginViewController.m */,
+				B370AE001AA3A25D00E369A3 /* QuizIDViewController.h */,
+				B370AE011AA3A25D00E369A3 /* QuizIDViewController.m */,
+				B32E21DF1A8A7ED20010815D /* PasscodeViewController.h */,
+				B32E21E01A8A7ED20010815D /* PasscodeViewController.m */,
+			);
+			name = Authentication;
+			sourceTree = "<group>";
+		};
+		B370AE051AA3A4DE00E369A3 /* Add Files */ = {
+			isa = PBXGroup;
+			children = (
+				B370ADF01AA380CB00E369A3 /* GlobalFn.h */,
+				B370ADF11AA380CB00E369A3 /* GlobalFn.m */,
+				B374F4E31AAEF6470094A645 /* mcqCell.h */,
+				B374F4E41AAEF6470094A645 /* mcqCell.m */,
+				B374F4E51AAEF6470094A645 /* mcqCell.xib */,
+				B374F4E81AB172F00094A645 /* multiCell.h */,
+				B374F4E91AB172F00094A645 /* multiCell.m */,
+				B374F4EA1AB172F00094A645 /* multiCell.xib */,
+			);
+			name = "Add Files";
+			sourceTree = "<group>";
+		};
+		B370AE061AA3A4EE00E369A3 /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				B3B9538B1A8A340A002A8541 /* AppDelegate.h */,
+				B3B9538C1A8A340A002A8541 /* AppDelegate.m */,
+				B3B953941A8A340A002A8541 /* Images.xcassets */,
+				B3B953961A8A340A002A8541 /* LaunchScreen.xib */,
+			);
+			name = Extra;
+			sourceTree = "<group>";
+		};
+		B370AE071AA3A85900E369A3 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				B307B3051AB1950000E7953A /* zeroCircleIndigoIcon.png */,
+				B307B3061AB1950000E7953A /* fullCircleIndigoIcon.png */,
+				B3C39D3F1AA599D0008C40FA /* fullCircleTealIcon.png */,
+				B3C39D401AA599D0008C40FA /* zeroCircleTealIcon.png */,
+				B3DFEEB11AA4B97200172538 /* checkedTealIcon.png */,
+				B3DFEEB21AA4B97200172538 /* uncheckedTealIcon.png */,
+				B370AE081AA3A86200E369A3 /* backIconWhite.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		B3B9537B1A8A340A002A8541 = {
 			isa = PBXGroup;
 			children = (
 				B3B953861A8A340A002A8541 /* QuizApp */,
 				B3B953A01A8A340A002A8541 /* QuizAppTests */,
 				B3B953851A8A340A002A8541 /* Products */,
+				569C2E0D15EE896D4022EB1A /* Pods */,
+				1C687C7675ABE1A5009F7065 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,13 +239,11 @@
 		B3B953861A8A340A002A8541 /* QuizApp */ = {
 			isa = PBXGroup;
 			children = (
-				B3B9538B1A8A340A002A8541 /* AppDelegate.h */,
-				B3B9538C1A8A340A002A8541 /* AppDelegate.m */,
-				B3B9538E1A8A340A002A8541 /* ViewController.h */,
-				B3B9538F1A8A340A002A8541 /* ViewController.m */,
+				B370AE071AA3A85900E369A3 /* Icons */,
+				B370AE061AA3A4EE00E369A3 /* Extra */,
+				B370AE051AA3A4DE00E369A3 /* Add Files */,
+				B32E21DB1A8A4DE10010815D /* ViewControllers */,
 				B3B953911A8A340A002A8541 /* Main.storyboard */,
-				B3B953941A8A340A002A8541 /* Images.xcassets */,
-				B3B953961A8A340A002A8541 /* LaunchScreen.xib */,
 				B3B953871A8A340A002A8541 /* Supporting Files */,
 			);
 			path = QuizApp;
@@ -119,6 +275,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B3DFEEAA1AA4B4AA00172538 /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				B3DFEEAE1AA4B56C00172538 /* questionViewController.h */,
+				B3DFEEAF1AA4B56C00172538 /* questionViewController.m */,
+			);
+			name = Quiz;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +291,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3B953A71A8A340A002A8541 /* Build configuration list for PBXNativeTarget "QuizApp" */;
 			buildPhases = (
+				D67D520E5FD98367B2A6CD79 /* Check Pods Manifest.lock */,
 				B3B953801A8A340A002A8541 /* Sources */,
 				B3B953811A8A340A002A8541 /* Frameworks */,
 				B3B953821A8A340A002A8541 /* Resources */,
+				48E70F92C6B25EDA1E85510F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -168,6 +335,7 @@
 				TargetAttributes = {
 					B3B953831A8A340A002A8541 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 34FM99VE32;
 					};
 					B3B9539C1A8A340A002A8541 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -200,8 +368,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B953931A8A340A002A8541 /* Main.storyboard in Resources */,
+				B370AE091AA3A86200E369A3 /* backIconWhite.png in Resources */,
+				B374F4E71AAEF6470094A645 /* mcqCell.xib in Resources */,
+				B307B3071AB1950100E7953A /* zeroCircleIndigoIcon.png in Resources */,
+				B3C39D421AA599D0008C40FA /* zeroCircleTealIcon.png in Resources */,
 				B3B953981A8A340A002A8541 /* LaunchScreen.xib in Resources */,
+				B3DFEEB41AA4B97200172538 /* uncheckedTealIcon.png in Resources */,
+				B307B3081AB1950100E7953A /* fullCircleIndigoIcon.png in Resources */,
 				B3B953951A8A340A002A8541 /* Images.xcassets in Resources */,
+				B374F4EC1AB172F00094A645 /* multiCell.xib in Resources */,
+				B3DFEEB31AA4B97200172538 /* checkedTealIcon.png in Resources */,
+				B3C39D411AA599D0008C40FA /* fullCircleTealIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,14 +391,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		48E70F92C6B25EDA1E85510F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D67D520E5FD98367B2A6CD79 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B3B953801A8A340A002A8541 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3B953901A8A340A002A8541 /* ViewController.m in Sources */,
+				B32E21E11A8A7ED20010815D /* PasscodeViewController.m in Sources */,
+				B370ADF21AA380CB00E369A3 /* GlobalFn.m in Sources */,
+				B370AE021AA3A25D00E369A3 /* QuizIDViewController.m in Sources */,
 				B3B9538D1A8A340A002A8541 /* AppDelegate.m in Sources */,
 				B3B9538A1A8A340A002A8541 /* main.m in Sources */,
+				B374F4EB1AB172F00094A645 /* multiCell.m in Sources */,
+				B374F4E61AAEF6470094A645 /* mcqCell.m in Sources */,
+				B3DFEEB01AA4B56C00172538 /* questionViewController.m in Sources */,
+				B32E21DE1A8A4DFE0010815D /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,8 +559,11 @@
 		};
 		B3B953A81A8A340A002A8541 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8898EA495A48A0657DC75DA3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = QuizApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -353,8 +572,11 @@
 		};
 		B3B953A91A8A340A002A8541 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 86254B8ADA2B11D9FEB85E45 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = QuizApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -414,6 +636,7 @@
 				B3B953A91A8A340A002A8541 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3B953AA1A8A340A002A8541 /* Build configuration list for PBXNativeTarget "QuizAppTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +645,7 @@
 				B3B953AC1A8A340A002A8541 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
