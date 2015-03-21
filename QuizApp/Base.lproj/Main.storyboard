@@ -152,7 +152,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" address="YES"/>
                             </textView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gaZ-F1-Cib">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gaZ-F1-Cib">
                                 <rect key="frame" x="25" y="256" width="271" height="235"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -184,6 +184,14 @@
                                     <action selector="clearAction:" destination="kDO-tj-p9e" eventType="touchUpInside" id="MMg-Tg-XU8"/>
                                 </connections>
                             </button>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Answer" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7YB-BR-NT1">
+                                <rect key="frame" x="25" y="256" width="271" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textEditingAction:" destination="kDO-tj-p9e" eventType="editingChanged" id="Axb-Ce-x1F"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -191,6 +199,7 @@
                             <constraint firstAttribute="centerX" secondItem="WU9-cu-p3r" secondAttribute="centerX" constant="70" id="3h1-vP-QMl"/>
                             <constraint firstAttribute="centerX" secondItem="gaZ-F1-Cib" secondAttribute="centerX" id="51C-hj-xtG"/>
                             <constraint firstItem="w5U-RH-tpZ" firstAttribute="top" secondItem="KDc-jM-cs4" secondAttribute="topMargin" id="8AD-j9-yzb"/>
+                            <constraint firstItem="lt5-gN-duf" firstAttribute="width" secondItem="7YB-BR-NT1" secondAttribute="width" id="Hye-ir-XfK"/>
                             <constraint firstItem="gaZ-F1-Cib" firstAttribute="top" secondItem="lt5-gN-duf" secondAttribute="bottom" constant="30" id="IP8-B5-CbP"/>
                             <constraint firstAttribute="centerX" secondItem="lt5-gN-duf" secondAttribute="centerX" id="Jig-2Z-WQB"/>
                             <constraint firstAttribute="centerX" secondItem="w5U-RH-tpZ" secondAttribute="centerX" id="Q38-ht-ovB"/>
@@ -199,16 +208,19 @@
                             <constraint firstItem="rxj-xx-f5b" firstAttribute="top" secondItem="WU9-cu-p3r" secondAttribute="bottom" constant="10" id="U1b-AI-0Cj"/>
                             <constraint firstAttribute="centerX" secondItem="w5U-RH-tpZ" secondAttribute="centerX" id="U2S-Ep-9HK"/>
                             <constraint firstItem="rxj-xx-f5b" firstAttribute="top" secondItem="z9Z-4j-HqP" secondAttribute="bottom" constant="10" id="UfI-Xa-N82"/>
+                            <constraint firstAttribute="centerX" secondItem="7YB-BR-NT1" secondAttribute="centerX" id="VX5-IE-2aM"/>
                             <constraint firstItem="z9Z-4j-HqP" firstAttribute="top" secondItem="gaZ-F1-Cib" secondAttribute="bottom" constant="15" id="YQb-XE-ddK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w5U-RH-tpZ" secondAttribute="trailing" constant="-20" id="eNQ-Or-DCD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gaZ-F1-Cib" secondAttribute="trailing" constant="8" id="el0-uI-Kzj"/>
                             <constraint firstAttribute="centerX" secondItem="z9Z-4j-HqP" secondAttribute="centerX" constant="-70" id="gBT-tq-1LP"/>
                             <constraint firstItem="lt5-gN-duf" firstAttribute="leading" secondItem="KDc-jM-cs4" secondAttribute="leadingMargin" constant="9" id="hKu-na-OJy"/>
                             <constraint firstItem="w5U-RH-tpZ" firstAttribute="leading" secondItem="KDc-jM-cs4" secondAttribute="leadingMargin" constant="-20" id="hmq-y6-i4r"/>
+                            <constraint firstItem="7YB-BR-NT1" firstAttribute="top" secondItem="lt5-gN-duf" secondAttribute="bottom" constant="30" id="nfv-CN-NTr"/>
                             <constraint firstItem="WU9-cu-p3r" firstAttribute="top" secondItem="gaZ-F1-Cib" secondAttribute="bottom" constant="15" id="pDv-a3-xGh"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ansView" destination="7YB-BR-NT1" id="oK0-4J-3su"/>
                         <outlet property="clearButton" destination="WU9-cu-p3r" id="zcf-PZ-w68"/>
                         <outlet property="navigationView" destination="w5U-RH-tpZ" id="hfT-i7-q5k"/>
                         <outlet property="nextButton" destination="x8P-91-N0M" id="Yrv-e9-Cyd"/>

@@ -28,6 +28,14 @@
     [submitButton setTitleColor:[GlobalFn getColor:1] forState:UIControlStateNormal];
     [clearButton setTitleColor:[GlobalFn getColor:1] forState:UIControlStateNormal];
     
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [questionView addGestureRecognizer:tap1];
+    [navigationView addGestureRecognizer:tap2];
+    
+    ansView.layer.masksToBounds = YES;
+    ansView.layer.borderColor = [[GlobalFn getColor:0] CGColor];
+    ansView.layer.borderWidth = 1;
     quesNo = @"0";
     
     quesTable.delegate = self;
@@ -48,9 +56,8 @@
             NSMutableArray *help2 = (NSMutableArray *)help[@"questions"];
             for (NSDictionary *help3 in help2) {
                 NSMutableDictionary *help4 = [help3 mutableCopy];
-                NSMutableArray *answerArray = [[NSMutableArray alloc] initWithObjects:@"-1", nil];
+                NSMutableArray *answerArray = [[NSMutableArray alloc] init];
                 [help4 setObject:answerArray forKey:@"answer"];
-                NSLog(@"%@",help4);
                 [questionArray addObject:help4];
             }
             qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
@@ -60,9 +67,12 @@
             questionView.textColor = [UIColor whiteColor];
             if ([questionArray[[quesNo integerValue]][@"type"] integerValue] <= 2) {
                 quesTable.hidden = NO;
+                ansView.hidden = YES;
             }
             else {
                 quesTable.hidden = YES;
+                ansView.hidden = NO;
+                ansView.text = @"";
             }
             [quesTable reloadData];
         }
@@ -77,6 +87,10 @@
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
+}
+
+-(void)dismissKeyboard {
+    [ansView resignFirstResponder];
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,7 +160,7 @@
 -(IBAction)mcqButAction:(id)sender {
     UIButton* myButton = (UIButton*)sender;
     if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
-        questionArray[[quesNo integerValue]][@"answer"] = [[NSMutableArray alloc] initWithObjects:@"-1", nil];
+        questionArray[[quesNo integerValue]][@"answer"] = [[NSMutableArray alloc] init];
     }
     [questionArray[[quesNo integerValue]][@"answer"] addObject:[NSString stringWithFormat:@"%ld", (long)myButton.tag]];
     [quesTable reloadData];
@@ -159,6 +173,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -(IBAction)nextAction:(id)sender {
+    [ansView resignFirstResponder];
     quesNo = [NSString stringWithFormat:@"%d",[quesNo integerValue]+1];
     if([quesNo integerValue] == [questionArray count]-1){
         nextButton.enabled = NO;
@@ -173,19 +188,28 @@
     prevButton.hidden = NO;
     if ([questionArray[[quesNo integerValue]][@"type"] integerValue] <= 2) {
         quesTable.hidden = NO;
+        ansView.hidden = YES;
     }
     else {
         quesTable.hidden = YES;
+        ansView.hidden = NO;
+        if ([questionArray[[quesNo integerValue]][@"answer"] count]>0) {
+            ansView.text = questionArray[[quesNo integerValue]][@"answer"][0];
+        }
+        else{
+            ansView.text = @"";
+        }
     }
     [quesTable reloadData];
 }
 
 -(IBAction)clearAction:(id)sender {
-    questionArray[[quesNo integerValue]][@"answer"] = [[NSMutableArray alloc] initWithObjects:@"-1", nil];
+    questionArray[[quesNo integerValue]][@"answer"] = [[NSMutableArray alloc] init];
     [quesTable reloadData];
 }
 
 -(IBAction)prevAction:(id)sender {
+    [ansView resignFirstResponder];
     quesNo = [NSString stringWithFormat:@"%d",[quesNo integerValue]-1];
     if([quesNo integerValue] == 0){
         prevButton.enabled = NO;
@@ -200,17 +224,25 @@
     nextButton.hidden = NO;
     if ([questionArray[[quesNo integerValue]][@"type"] integerValue] <= 2) {
         quesTable.hidden = NO;
+        ansView.hidden = YES;
     }
     else {
         quesTable.hidden = YES;
+        ansView.hidden = NO;
+        if ([questionArray[[quesNo integerValue]][@"answer"] count]>0) {
+            ansView.text = questionArray[[quesNo integerValue]][@"answer"][0];
+        }
+        else{
+            ansView.text = @"";
+        }
     }
     [quesTable reloadData];
 }
 
 -(IBAction)submitAction:(id)sender {
     for(int i=0;i<[questionArray count];i++) {
-        NSLog(@"Question : %@",questionArray[i][@"ques"]);
-        NSLog(@"Answer : %@",questionArray[i][@"answer"]);
+        //NSLog(@"Question : %@",questionArray[i][@"question"]);
+        //NSLog(@"Answer : %@",questionArray[i][@"answer"]);
     }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
                                                     message:@"Are you sure you want to submit the quiz?"
@@ -223,8 +255,48 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [self.view makeToast:@"Thanks for submitting"];
+        //[self.view makeToast:@"Thanks for submitting"];
+        NSMutableArray *finalAns = [[NSMutableArray alloc] init];
+        for(int i=0;i<[questionArray count];i++) {
+            NSMutableDictionary * help = [[NSMutableDictionary alloc] init];
+            [help setObject:questionArray[i][@"id"] forKey:@"question_id"];
+            NSMutableArray *help2 = (NSMutableArray *)questionArray[i][@"answer"];
+            if ([questionArray[i][@"type"] integerValue] <= 2) {
+                for (int j=0; j<[help2 count]; j++) {
+                    help2[j] = questionArray[i][@"options"][j][@"id"];
+                }
+            }
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:help2 options:0 error:nil];
+            NSString *ansString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            [help setObject:ansString forKey:@"response"];
+            [finalAns addObject:help];
+        }
+        NSLog(@"%@",finalAns);
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:finalAns options:0 error:nil];
+        NSString *submission = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSDictionary *parameters = @{@"quiz_id":_quizID,@"uniq_id":_uniqueID,@"key":@"123",@"submit_time":@"500",@"submission":submission};
+        NSLog(@"Param : %@",parameters);
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        
+        [manager POST:@"http://quizapp.prateekchandan.me/api/quiz/submit" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+            NSLog(@"JSON: %@", responseObject);
+            NSDictionary *help = (NSDictionary *) responseObject;
+            NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
+            if ([errormsg isEqualToString:@"1"]) {
+                [self.view makeToast:help[@"message"]];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            [self.view makeToast:@"Check your internet connection"];
+        }];
     }
+}
+
+-(IBAction)textEditingAction:(id)sender {
+    UITextField * help = (UITextField *) sender;
+    NSLog(@"%@",help.text);
+    questionArray[[quesNo integerValue]][@"answer"] = [[NSMutableArray alloc] initWithObjects:help.text, nil];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

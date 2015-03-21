@@ -18,7 +18,7 @@
     IBOutlet UIButton *prevButton;
     IBOutlet UIButton *submitButton;
     IBOutlet UIButton *clearButton;
-    IBOutlet UITextView *ansView;
+    IBOutlet UITextField *ansView;
     NSString *quesNo;
     NSMutableArray *arrayHelp;
     NSMutableArray *questionArray;
@@ -33,5 +33,6 @@
 -(IBAction)clearAction:(id)sender;
 -(IBAction)nextAction:(id)sender;
 -(IBAction)prevAction:(id)sender;
+-(IBAction)textEditingAction:(id)sender;
 
 @end
