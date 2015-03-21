@@ -30,6 +30,8 @@
 		B39133A21ABDA87200AFA252 /* File in Resources */ = {isa = PBXBuildFile; fileRef = B39133A11ABDA87200AFA252 /* File */; };
 		B39133A51ABDA99D00AFA252 /* uncheckIndigoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B39133A31ABDA99D00AFA252 /* uncheckIndigoIcon.png */; };
 		B39133A61ABDA99D00AFA252 /* checkIndigoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B39133A41ABDA99D00AFA252 /* checkIndigoIcon.png */; };
+		B39133A91ABDDCD700AFA252 /* summaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B39133A81ABDDCD700AFA252 /* summaryViewController.m */; };
+		B39133AB1ABDDD5E00AFA252 /* backWhiteIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = B39133AA1ABDDD5E00AFA252 /* backWhiteIcon.png */; };
 		B3B9538A1A8A340A002A8541 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B953891A8A340A002A8541 /* main.m */; };
 		B3B9538D1A8A340A002A8541 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B9538C1A8A340A002A8541 /* AppDelegate.m */; };
 		B3B953931A8A340A002A8541 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B953911A8A340A002A8541 /* Main.storyboard */; };
@@ -87,6 +89,9 @@
 		B39133A11ABDA87200AFA252 /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
 		B39133A31ABDA99D00AFA252 /* uncheckIndigoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheckIndigoIcon.png; sourceTree = "<group>"; };
 		B39133A41ABDA99D00AFA252 /* checkIndigoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkIndigoIcon.png; sourceTree = "<group>"; };
+		B39133A71ABDDCD700AFA252 /* summaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = summaryViewController.h; sourceTree = "<group>"; };
+		B39133A81ABDDCD700AFA252 /* summaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = summaryViewController.m; sourceTree = "<group>"; };
+		B39133AA1ABDDD5E00AFA252 /* backWhiteIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backWhiteIcon.png; sourceTree = "<group>"; };
 		B3B953841A8A340A002A8541 /* QuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B953881A8A340A002A8541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3B953891A8A340A002A8541 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -211,6 +216,7 @@
 		B370AE071AA3A85900E369A3 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				B39133AA1ABDDD5E00AFA252 /* backWhiteIcon.png */,
 				B39133A31ABDA99D00AFA252 /* uncheckIndigoIcon.png */,
 				B39133A41ABDA99D00AFA252 /* checkIndigoIcon.png */,
 				B307B3051AB1950000E7953A /* zeroCircleIndigoIcon.png */,
@@ -289,6 +295,8 @@
 				B3DFEEAE1AA4B56C00172538 /* questionViewController.h */,
 				B3DFEEAF1AA4B56C00172538 /* questionViewController.m */,
 				B39133A11ABDA87200AFA252 /* File */,
+				B39133A71ABDDCD700AFA252 /* summaryViewController.h */,
+				B39133A81ABDDCD700AFA252 /* summaryViewController.m */,
 			);
 			name = Quiz;
 			sourceTree = "<group>";
@@ -391,6 +399,7 @@
 				B374F4EC1AB172F00094A645 /* multiCell.xib in Resources */,
 				B3DFEEB31AA4B97200172538 /* checkedTealIcon.png in Resources */,
 				B3C39D411AA599D0008C40FA /* fullCircleTealIcon.png in Resources */,
+				B39133AB1ABDDD5E00AFA252 /* backWhiteIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +455,7 @@
 				B370AE021AA3A25D00E369A3 /* QuizIDViewController.m in Sources */,
 				B3B9538D1A8A340A002A8541 /* AppDelegate.m in Sources */,
 				B3B9538A1A8A340A002A8541 /* main.m in Sources */,
+				B39133A91ABDDCD700AFA252 /* summaryViewController.m in Sources */,
 				B374F4EB1AB172F00094A645 /* multiCell.m in Sources */,
 				B374F4E61AAEF6470094A645 /* mcqCell.m in Sources */,
 				B3DFEEB01AA4B56C00172538 /* questionViewController.m in Sources */,

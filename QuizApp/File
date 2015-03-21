@@ -24,3 +24,20 @@ questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integ
 questionView.backgroundColor = [GlobalFn getColor:0];
 [questionView setFont:[UIFont systemFontOfSize:17]];
 questionView.textColor = [UIColor whiteColor];*/
+
+
+
+AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+manager.responseSerializer = [AFJSONResponseSerializer serializer];
+
+[manager POST:@"http://quizapp.prateekchandan.me/api/quiz/submit" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+NSLog(@"JSON: %@", responseObject);
+NSDictionary *help = (NSDictionary *) responseObject;
+NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
+if ([errormsg isEqualToString:@"1"]) {
+[self.view makeToast:help[@"message"]];
+}
+} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+NSLog(@"Error: %@", error);
+[self.view makeToast:@"Check your internet connection"];
+}];

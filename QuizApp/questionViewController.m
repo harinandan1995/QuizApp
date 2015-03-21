@@ -10,6 +10,7 @@
 #import "GlobalFn.h"
 #import <Toast/UIView+Toast.h>
 #import <AFNetworking/AFNetworking.h>
+#import "summaryViewController.h"
 #import "mcqCell.h"
 
 @interface questionViewController ()
@@ -255,7 +256,6 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        //[self.view makeToast:@"Thanks for submitting"];
         NSMutableArray *finalAns = [[NSMutableArray alloc] init];
         for(int i=0;i<[questionArray count];i++) {
             NSMutableDictionary * help = [[NSMutableDictionary alloc] init];
@@ -266,30 +266,66 @@
                     help2[j] = questionArray[i][@"options"][j][@"id"];
                 }
             }
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:help2 options:0 error:nil];
-            NSString *ansString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            [help setObject:ansString forKey:@"response"];
+            [help setObject:help2 forKey:@"response"];
             [finalAns addObject:help];
         }
-        NSLog(@"%@",finalAns);
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:finalAns options:0 error:nil];
+        NSMutableDictionary * subDic = [[NSMutableDictionary alloc] init];
+        [subDic setObject:@"500" forKey:@"submit_time"];
+        [subDic setObject:finalAns forKey:@"submission"];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:subDic options:NSJSONWritingPrettyPrinted error:nil];
         NSString *submission = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSDictionary *parameters = @{@"quiz_id":_quizID,@"uniq_id":_uniqueID,@"key":@"123",@"submit_time":@"500",@"submission":submission};
-        NSLog(@"Param : %@",parameters);
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        [submission stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+        NSLog(@"DATA : %@",submission);
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://quizapp.prateekchandan.me/api/quiz/submit?key=123&uniq_id=%@&quiz_id=%@",_uniqueID,_quizID]]];
+        [request setHTTPBody:jsonData];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        [manager POST:@"http://quizapp.prateekchandan.me/api/quiz/submit" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
-            NSLog(@"JSON: %@", responseObject);
-            NSDictionary *help = (NSDictionary *) responseObject;
-            NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
-            if ([errormsg isEqualToString:@"1"]) {
-                [self.view makeToast:help[@"message"]];
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
+        NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+        
+        if (theConnection) {
+            NSLog(@"connected");
+        } else {
+            NSLog(@"not connected");
             [self.view makeToast:@"Check your internet connection"];
-        }];
+        }
+        
+    }
+
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    NSMutableData *receivedData=[[NSMutableData alloc]init];
+    [receivedData appendData:data];
+    NSDictionary *help = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
+    NSLog(@"response: %@",help);
+    NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
+
+    if ([errormsg isEqualToString:@"0"]) {
+        if ([help[@"show_result"] integerValue] == 1) {
+            summaryViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"summaryViewController"];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+            navigationController.navigationBarHidden  = YES;
+            viewController.quizID = _quizID;
+            viewController.uniqueID = _uniqueID;
+            viewController.stu_id = _stu_id;
+            viewController.stu_name = _stu_name;
+            viewController.msg = help[@"message"];
+            
+            [self presentViewController:navigationController animated:NO completion:nil];
+        }
+        else {
+            questionView.hidden = YES;
+            qNoLabel.text = @"Done";
+            prevButton.hidden = YES;
+            nextButton.hidden = YES;
+            ansView.hidden = YES;
+            quesTable.hidden = YES;
+        }
+    }
+    else {
+        [self.view makeToast:help[@"message"]];
     }
 }
 
