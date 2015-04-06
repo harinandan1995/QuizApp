@@ -20,12 +20,14 @@
     IBOutlet UIButton *clearButton;
     IBOutlet UITextField *ansView;
     NSString *quesNo;
+    NSString *shufAns;
+    NSString *shufQues;
     NSMutableArray *arrayHelp;
     NSMutableArray *questionArray;
 }
 
-@property (nonatomic,weak) NSString *uniqueID;
-@property (nonatomic,weak) NSString *quizID;
+@property (nonatomic,strong) NSString *uniqueID;
+@property (nonatomic,strong) NSString *quizID;
 @property (nonatomic,strong) NSString *stu_name;
 @property (nonatomic,strong) NSString *stu_id;
 

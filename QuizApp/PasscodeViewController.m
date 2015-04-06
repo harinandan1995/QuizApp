@@ -216,7 +216,7 @@
         NSLog(@"Param : %@",parameters);
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        [manager POST:@"http://quizapp.prateekchandan.me/api/quiz/Auth" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+        [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/quiz/Auth" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
             NSLog(@"JSON: %@", responseObject);
             NSDictionary *help = (NSDictionary *) responseObject;
             NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];

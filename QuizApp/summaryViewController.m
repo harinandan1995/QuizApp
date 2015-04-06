@@ -29,18 +29,26 @@
     NSLog(@"Param : %@",parameters);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager POST:@"http://quizapp.prateekchandan.me/api/quiz/summary" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+    [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/quiz/summary" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
         NSLog(@"JSON: %@", responseObject);
         NSDictionary *help = (NSDictionary *) responseObject;
         NSString *summary = @"";
         NSMutableArray *responseArray = (NSMutableArray *)help[@"responses"];
         for (NSDictionary *help2 in responseArray) {
+            summary = [summary stringByAppendingString:[NSString stringWithFormat:@"\nQNo : %@\nResult : %@\nGiven Answers : ",help2[@"id"],help2[@"result"]]];
+            for(id ca in help2[@"given_answer"]){
+                summary = [summary stringByAppendingString:[NSString stringWithFormat:@"%@ ",ca]];
+            }
             if ([help2[@"show_answers"] integerValue] == 1) {
-                summary = [summary stringByAppendingString:[NSString stringWithFormat:@"QNo : %@ Result : %@ \nGiven Ans : %@\nCorrect Ans : %@\nMarks : %@",help2[@"id"],help2[@"result"],help2[@"given_answer"],help2[@"correct_answer"],help2[@"marks_obtained"]]];
+                summary = [summary stringByAppendingString:@"Correct Answers :\n"];
+                for(id ca in help2[@"correct_answer"]){
+                    summary = [summary stringByAppendingString:[NSString stringWithFormat:@"%@ ",ca]];
+                }
             }
-            else {
-                summary = [summary stringByAppendingString:[NSString stringWithFormat:@"QNo : %@ Result : %@ \nGiven Ans : %@\nMarks : %@\n",help2[@"id"],help2[@"result"],help2[@"given_answer"],help2[@"marks_obtained"]]];
+            if ([help2[@"show_marks"] integerValue] == 1) {
+                summary = [summary stringByAppendingString:[NSString stringWithFormat:@"\nMarks Obtained : %@ ",help2[@"marks_obtained"]]];
             }
+            summary = [summary stringByAppendingString:@"\n"];
         }
         summaryView.text = summary;
         NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];

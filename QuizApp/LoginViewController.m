@@ -56,7 +56,7 @@
         NSLog(@"Param : %@",parameters);
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        [manager POST:@"http://quizapp.prateekchandan.me/api/ldap-auth" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+        [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/ldap-auth" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
             [loading stopAnimating];
             loading.hidden = YES;
             NSLog(@"JSON: %@", responseObject);

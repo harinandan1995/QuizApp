@@ -45,23 +45,66 @@
     prevButton.enabled = NO;
     questionArray = [[NSMutableArray alloc] init];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveNotification:)
+                                                 name:@"backgroundNotification"
+                                               object:nil];
+    
+    shufAns = @"1";
+    shufQues = @"1";
+    NSLog(@"%@ - %@",_quizID,_uniqueID);
     NSDictionary *parameters = @{@"quiz_id":_quizID,@"uniq_id":_uniqueID,@"key":@"123"};
     NSLog(@"Param : %@",parameters);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager POST:@"http://quizapp.prateekchandan.me/api/quiz/get" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+    [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/quiz/get" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
         NSLog(@"JSON: %@", responseObject);
         NSDictionary *help = (NSDictionary *) responseObject;
         NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
+        shufAns = [NSString stringWithFormat:@"%@",help[@"randomize_options"]];
+        shufQues = [NSString stringWithFormat:@"%@",help[@"randomize_questions"]];
         if ([errormsg isEqualToString:@"0"]) {
+            if(![help[@"message"] isEqualToString:@"Successfully transferred the quiz"]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                                message:help[@"message"]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
             NSMutableArray *help2 = (NSMutableArray *)help[@"questions"];
             for (NSDictionary *help3 in help2) {
                 NSMutableDictionary *help4 = [help3 mutableCopy];
+                if ([help4[@"type"] integerValue] <= 2) {
+                    if ([shufAns isEqualToString:@"1"]) {
+                        NSMutableArray *optShuf = [help4[@"options"] mutableCopy];
+                        NSUInteger count = [optShuf count];
+                        for (NSUInteger i = 0; i < count; ++i) {
+                            NSInteger remainingCount = count - i;
+                            NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+                            [optShuf exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+                        }
+                        [help4 setObject:optShuf forKey:@"options"];
+                        //NSLog(@"%@",help4[@"options"]);
+                    }
+                }
                 NSMutableArray *answerArray = [[NSMutableArray alloc] init];
                 [help4 setObject:answerArray forKey:@"answer"];
                 [questionArray addObject:help4];
             }
-            qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+            if ([shufQues isEqualToString:@"1"]) {
+                NSUInteger count = [questionArray count];
+                for (NSUInteger i = 0; i < count; ++i) {
+                    NSInteger remainingCount = count - i;
+                    NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+                    [questionArray exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+                }
+                qNoLabel.text = [NSString stringWithFormat:@"Question %ld",(long)[quesNo integerValue]+1];
+            }
+            else {
+                qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+            }
+            
             questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"question"]];
             questionView.backgroundColor = [GlobalFn getColor:0];
             [questionView setFont:[UIFont systemFontOfSize:17]];
@@ -84,6 +127,24 @@
         NSLog(@"Error: %@", error);
         [self.view makeToast:@"Check your internet connection"];
     }];
+    
+    for (int i=0; i<[questionArray count]; i++) {
+        NSLog(@"asdasd");
+        if ([questionArray[i][@"type"] integerValue] <= 2) {
+            if ([shufAns isEqualToString:@"1"]) {
+                NSMutableArray *optShuf = [questionArray[i][@"options"] mutableCopy];
+                NSUInteger count = [optShuf count];
+                for (NSUInteger i = 0; i < count; ++i) {
+                    NSInteger remainingCount = count - i;
+                    NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+                    [optShuf exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+                }
+                [questionArray[i] setObject:optShuf forKey:@"options"];
+                NSLog(@"%@",questionArray[i][@"options"]);
+            }
+        }
+    }
+    
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -92,6 +153,15 @@
 
 -(void)dismissKeyboard {
     [ansView resignFirstResponder];
+}
+
+- (void) receiveNotification:(NSNotification *) notification{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                    message:@"Warning : You went background, this event is logged to instructor"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,7 +250,12 @@
         nextButton.enabled = NO;
         nextButton.hidden = YES;
     }
-    qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+    if ([shufQues isEqualToString:@"1"]) {
+        qNoLabel.text = [NSString stringWithFormat:@"Question %ld",(long)[quesNo integerValue]+1];
+    }
+    else {
+        qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+    }
     questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"question"]];
     questionView.backgroundColor = [GlobalFn getColor:0];
     [questionView setFont:[UIFont systemFontOfSize:17]];
@@ -216,7 +291,12 @@
         prevButton.enabled = NO;
         prevButton.hidden = YES;
     }
-    qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+    if ([shufQues isEqualToString:@"1"]) {
+        qNoLabel.text = [NSString stringWithFormat:@"Question %ld",(long)[quesNo integerValue]+1];
+    }
+    else {
+        qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+    }
     questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"question"]];
     questionView.backgroundColor = [GlobalFn getColor:0];
     [questionView setFont:[UIFont systemFontOfSize:17]];
@@ -260,13 +340,16 @@
         for(int i=0;i<[questionArray count];i++) {
             NSMutableDictionary * help = [[NSMutableDictionary alloc] init];
             [help setObject:questionArray[i][@"id"] forKey:@"question_id"];
-            NSMutableArray *help2 = (NSMutableArray *)questionArray[i][@"answer"];
+            NSMutableArray *responseArray = (NSMutableArray *)questionArray[i][@"answer"];
+            
             if ([questionArray[i][@"type"] integerValue] <= 2) {
-                for (int j=0; j<[help2 count]; j++) {
-                    help2[j] = questionArray[i][@"options"][j][@"id"];
+                for (int j=0;j<[responseArray count] ; j++) {
+                    NSMutableArray *optArray = questionArray[i][@"options"];
+                    int temp = [[responseArray objectAtIndex:j] integerValue];
+                    responseArray[j] = [optArray objectAtIndex:temp][@"id"];
                 }
             }
-            [help setObject:help2 forKey:@"response"];
+            [help setObject:responseArray forKey:@"response"];
             [finalAns addObject:help];
         }
         NSMutableDictionary * subDic = [[NSMutableDictionary alloc] init];
@@ -276,7 +359,7 @@
         NSString *submission = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         [submission stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         NSLog(@"DATA : %@",submission);
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://quizapp.prateekchandan.me/api/quiz/submit?key=123&uniq_id=%@&quiz_id=%@",_uniqueID,_quizID]]];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bodhitree3.cse.iitb.ac.in:8080/api/quiz/submit?key=123&uniq_id=%@&quiz_id=%@",_uniqueID,_quizID]]];
         [request setHTTPBody:jsonData];
         [request setHTTPMethod:@"POST"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -303,6 +386,14 @@
     NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
 
     if ([errormsg isEqualToString:@"0"]) {
+        if(![help[@"message"] isEqualToString:@""]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                            message:help[@"message"]
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
         if ([help[@"show_result"] integerValue] == 1) {
             summaryViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"summaryViewController"];
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];

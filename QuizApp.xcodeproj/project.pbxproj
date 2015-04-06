@@ -66,6 +66,7 @@
 		B32E21DD1A8A4DFE0010815D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		B32E21DF1A8A7ED20010815D /* PasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasscodeViewController.h; sourceTree = "<group>"; };
 		B32E21E01A8A7ED20010815D /* PasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasscodeViewController.m; sourceTree = "<group>"; };
+		B34BD4901AD1A57800E03612 /* arkenstone-symbol-font-v1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "arkenstone-symbol-font-v1.ttf"; sourceTree = "<group>"; };
 		B370ADE71AA37E7400E369A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B370ADE91AA37E8200E369A3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		B370ADEB1AA37E8B00E369A3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -266,6 +267,7 @@
 		B3B953871A8A340A002A8541 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B34BD4901AD1A57800E03612 /* arkenstone-symbol-font-v1.ttf */,
 				B3B953881A8A340A002A8541 /* Info.plist */,
 				B3B953891A8A340A002A8541 /* main.m */,
 			);
