@@ -156,12 +156,23 @@
 }
 
 - (void) receiveNotification:(NSNotification *) notification{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
-                                                    message:@"Warning : You went background, this event is logged to instructor"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles:nil];
-    [alert show];
+    NSDictionary *parameters = @{@"quiz_id":_quizID,@"uniq_id":_uniqueID,@"key":@"123",@"message":[NSString stringWithFormat:@"%@ went background",_stu_name]};
+    NSLog(@"Param : %@",parameters);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/add-log" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+        NSLog(@"JSON: %@", responseObject);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                        message:@"Warning : You went background, this event is logged to instructor"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [self.view makeToast:@"Check your internet connection"];
+        [self receiveNotification:nil];
+    }];
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

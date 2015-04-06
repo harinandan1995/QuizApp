@@ -74,13 +74,27 @@
                                     <constraint firstAttribute="width" constant="20" id="Q7y-2T-886"/>
                                 </constraints>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwi-hA-vLX">
+                                <rect key="frame" x="122" y="490" width="77" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="77" id="I3s-gv-2zA"/>
+                                    <constraint firstAttribute="height" constant="30" id="WZX-50-p36"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Rco-Ye-EZJ" firstAttribute="top" secondItem="VIx-wb-tSV" secondAttribute="bottom" constant="26" id="8HK-71-XKv"/>
                             <constraint firstAttribute="centerX" secondItem="zeo-HQ-2Nh" secondAttribute="centerX" id="Qhp-Fl-Bpb"/>
                             <constraint firstAttribute="centerX" secondItem="0TS-bB-9DH" secondAttribute="centerX" id="ZPK-BI-mwg"/>
+                            <constraint firstAttribute="centerX" secondItem="bwi-hA-vLX" secondAttribute="centerX" id="ZQO-Xw-IHK"/>
                             <constraint firstAttribute="centerX" secondItem="VIx-wb-tSV" secondAttribute="centerX" id="aZR-tG-A0l"/>
+                            <constraint firstItem="bwi-hA-vLX" firstAttribute="top" secondItem="Rco-Ye-EZJ" secondAttribute="bottom" constant="80" id="g1K-kg-cGL"/>
                             <constraint firstItem="zeo-HQ-2Nh" firstAttribute="top" secondItem="0TS-bB-9DH" secondAttribute="bottom" constant="39" id="jQ8-8u-al8"/>
                             <constraint firstAttribute="centerX" secondItem="zeo-HQ-2Nh" secondAttribute="centerX" id="jrs-sD-k8f"/>
                             <constraint firstItem="VIx-wb-tSV" firstAttribute="top" secondItem="zeo-HQ-2Nh" secondAttribute="bottom" constant="35" id="rAD-zJ-bif"/>
@@ -325,19 +339,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="10.124.x.x" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UxQ-Ar-BSD">
-                                <rect key="frame" x="60" y="269" width="200" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Frc-Am-b8v"/>
-                                    <constraint firstAttribute="width" constant="200" id="klB-2n-2j3"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Svi-vz-xQQ">
                                 <rect key="frame" x="119" y="334" width="82" height="30"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="82" id="7p8-V6-sRD"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Zq9-b7-g6i"/>
                                     <constraint firstAttribute="width" constant="82" id="d27-OU-snc"/>
                                     <constraint firstAttribute="height" constant="30" id="rM2-X8-uJO"/>
                                 </constraints>
@@ -351,7 +357,11 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Quiz ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DhZ-mS-pQR">
-                                <rect key="frame" x="60" y="200" width="200" height="30"/>
+                                <rect key="frame" x="60" y="263" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="3Ip-3Y-uG2"/>
+                                    <constraint firstAttribute="height" constant="30" id="XKJ-dc-9C0"/>
+                                </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -390,25 +400,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ceI-3u-7Bp" firstAttribute="top" secondItem="Svi-vz-xQQ" secondAttribute="bottom" constant="26" id="1mY-p5-j57"/>
-                            <constraint firstAttribute="centerX" secondItem="ceI-3u-7Bp" secondAttribute="centerX" id="CBC-5B-fvQ"/>
+                            <constraint firstAttribute="centerX" secondItem="DhZ-mS-pQR" secondAttribute="centerX" id="6Xp-xN-3fk"/>
+                            <constraint firstAttribute="centerX" secondItem="Svi-vz-xQQ" secondAttribute="centerX" id="9WM-vD-lo3"/>
+                            <constraint firstItem="ceI-3u-7Bp" firstAttribute="top" secondItem="Svi-vz-xQQ" secondAttribute="bottom" constant="26" id="FLu-Fs-X9Y"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Do0-d8-cn8" secondAttribute="trailing" constant="-20" id="Ji1-Aj-jfL"/>
-                            <constraint firstItem="UxQ-Ar-BSD" firstAttribute="top" secondItem="DhZ-mS-pQR" secondAttribute="bottom" constant="39" id="KHw-q0-aVW"/>
-                            <constraint firstItem="DhZ-mS-pQR" firstAttribute="height" secondItem="UxQ-Ar-BSD" secondAttribute="height" id="LFz-ET-yns"/>
-                            <constraint firstAttribute="centerY" secondItem="UxQ-Ar-BSD" secondAttribute="centerY" id="NBq-pE-SvF"/>
-                            <constraint firstItem="Svi-vz-xQQ" firstAttribute="top" secondItem="UxQ-Ar-BSD" secondAttribute="bottom" constant="35" id="SZl-MQ-OOn"/>
+                            <constraint firstItem="Svi-vz-xQQ" firstAttribute="top" secondItem="DhZ-mS-pQR" secondAttribute="bottom" constant="41" id="UjI-La-a2m"/>
+                            <constraint firstItem="DhZ-mS-pQR" firstAttribute="top" secondItem="Do0-d8-cn8" secondAttribute="bottom" constant="192" id="XLg-g9-YxH"/>
                             <constraint firstAttribute="centerX" secondItem="Do0-d8-cn8" secondAttribute="centerX" id="Zne-4V-RKG"/>
-                            <constraint firstAttribute="centerX" secondItem="UxQ-Ar-BSD" secondAttribute="centerX" id="dGK-d8-sWT"/>
                             <constraint firstItem="Do0-d8-cn8" firstAttribute="top" secondItem="CTm-ly-BkQ" secondAttribute="topMargin" id="ihk-SC-FJC"/>
-                            <constraint firstItem="DhZ-mS-pQR" firstAttribute="width" secondItem="UxQ-Ar-BSD" secondAttribute="width" id="kDD-nA-eWS"/>
-                            <constraint firstAttribute="centerX" secondItem="Svi-vz-xQQ" secondAttribute="centerX" id="kaF-mA-t3B"/>
-                            <constraint firstAttribute="centerX" secondItem="DhZ-mS-pQR" secondAttribute="centerX" id="oGz-FC-VOg"/>
                             <constraint firstItem="Do0-d8-cn8" firstAttribute="leading" secondItem="CTm-ly-BkQ" secondAttribute="leadingMargin" constant="-20" id="ySN-3g-f6k"/>
+                            <constraint firstAttribute="centerX" secondItem="ceI-3u-7Bp" secondAttribute="centerX" id="zCb-kA-PEs"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="continueButton" destination="Svi-vz-xQQ" id="qu2-ND-HJP"/>
-                        <outlet property="ipField" destination="UxQ-Ar-BSD" id="ZEA-mQ-0Kd"/>
                         <outlet property="loading" destination="ceI-3u-7Bp" id="2Pr-zd-lDf"/>
                         <outlet property="navigationView" destination="Do0-d8-cn8" id="PzK-6L-aYB"/>
                         <outlet property="quizIdField" destination="DhZ-mS-pQR" id="iUm-PP-x7Z"/>
