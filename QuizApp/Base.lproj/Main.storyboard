@@ -22,13 +22,14 @@
             <string>arkenstone-symbol-font</string>
             <string>arkenstone-symbol-font</string>
             <string>arkenstone-symbol-font</string>
+            <string>arkenstone-symbol-font</string>
         </mutableArray>
     </customFonts>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="cE8-MP-Ojr">
             <objects>
-                <viewController id="6Su-gz-3dD" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6Su-gz-3dD" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="D4Y-Rp-jtx"/>
                         <viewControllerLayoutGuide type="bottom" id="Q6A-iA-c3d"/>
@@ -85,6 +86,9 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="Jwa-Ue-uXc" kind="modal" animates="NO" id="yaC-T3-TwB"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -226,6 +230,16 @@
                                     <action selector="textEditingAction:" destination="kDO-tj-p9e" eventType="editingChanged" id="Axb-Ce-x1F"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvi-Gy-AZI">
+                                <rect key="frame" x="132" y="503" width="56" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="UpP-tG-YWb"/>
+                                    <constraint firstAttribute="width" constant="56" id="mc7-V8-DOI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -242,6 +256,7 @@
                             <constraint firstItem="rxj-xx-f5b" firstAttribute="top" secondItem="WU9-cu-p3r" secondAttribute="bottom" constant="10" id="U1b-AI-0Cj"/>
                             <constraint firstAttribute="centerX" secondItem="w5U-RH-tpZ" secondAttribute="centerX" id="U2S-Ep-9HK"/>
                             <constraint firstItem="rxj-xx-f5b" firstAttribute="top" secondItem="z9Z-4j-HqP" secondAttribute="bottom" constant="10" id="UfI-Xa-N82"/>
+                            <constraint firstAttribute="centerX" secondItem="uvi-Gy-AZI" secondAttribute="centerX" id="VCM-Nr-UrA"/>
                             <constraint firstAttribute="centerX" secondItem="7YB-BR-NT1" secondAttribute="centerX" id="VX5-IE-2aM"/>
                             <constraint firstItem="z9Z-4j-HqP" firstAttribute="top" secondItem="gaZ-F1-Cib" secondAttribute="bottom" constant="15" id="YQb-XE-ddK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w5U-RH-tpZ" secondAttribute="trailing" constant="-20" id="eNQ-Or-DCD"/>
@@ -249,6 +264,7 @@
                             <constraint firstAttribute="centerX" secondItem="z9Z-4j-HqP" secondAttribute="centerX" constant="-70" id="gBT-tq-1LP"/>
                             <constraint firstItem="lt5-gN-duf" firstAttribute="leading" secondItem="KDc-jM-cs4" secondAttribute="leadingMargin" constant="9" id="hKu-na-OJy"/>
                             <constraint firstItem="w5U-RH-tpZ" firstAttribute="leading" secondItem="KDc-jM-cs4" secondAttribute="leadingMargin" constant="-20" id="hmq-y6-i4r"/>
+                            <constraint firstItem="rxj-xx-f5b" firstAttribute="top" secondItem="uvi-Gy-AZI" secondAttribute="bottom" constant="9" id="m23-t7-bzS"/>
                             <constraint firstItem="7YB-BR-NT1" firstAttribute="top" secondItem="lt5-gN-duf" secondAttribute="bottom" constant="30" id="nfv-CN-NTr"/>
                             <constraint firstItem="WU9-cu-p3r" firstAttribute="top" secondItem="gaZ-F1-Cib" secondAttribute="bottom" constant="15" id="pDv-a3-xGh"/>
                         </constraints>
@@ -263,6 +279,7 @@
                         <outlet property="quesTable" destination="gaZ-F1-Cib" id="LFw-0a-0tG"/>
                         <outlet property="questionView" destination="lt5-gN-duf" id="KOP-70-8XX"/>
                         <outlet property="submitButton" destination="z9Z-4j-HqP" id="wdA-aS-iHq"/>
+                        <outlet property="timeLabel" destination="uvi-Gy-AZI" id="5iu-P7-wxR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mU3-zj-kTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -370,24 +387,33 @@
                                 <rect key="frame" x="-4" y="0.0" width="328" height="71"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hiS-nM-Ynb">
-                                        <rect key="frame" x="20" y="32" width="30" height="30"/>
+                                        <rect key="frame" x="20" y="23" width="83" height="48"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="Dpp-nc-bKr"/>
-                                            <constraint firstAttribute="height" constant="30" id="MiB-IL-mHR"/>
+                                            <constraint firstAttribute="width" constant="83" id="G8p-w1-ANt"/>
+                                            <constraint firstAttribute="height" constant="48" id="S3c-FN-Bbd"/>
                                         </constraints>
-                                        <state key="normal" image="backWhiteIcon.png">
+                                        <state key="normal" title="Back">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="6Su-gz-3dD" kind="modal" modalTransitionStyle="crossDissolve" id="nNN-Dl-MNg"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backWhite.png" translatesAutoresizingMaskIntoConstraints="NO" id="RFa-SS-wYM">
+                                        <rect key="frame" x="12" y="33" width="30" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="Knn-wO-EYl"/>
+                                            <constraint firstAttribute="height" constant="27" id="YqS-fo-Ja5"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="hiS-nM-Ynb" firstAttribute="leading" secondItem="Do0-d8-cn8" secondAttribute="leading" constant="20" id="H36-9n-7Ul"/>
+                                    <constraint firstItem="hiS-nM-Ynb" firstAttribute="leading" secondItem="Do0-d8-cn8" secondAttribute="leading" constant="20" id="9qk-BS-vY6"/>
+                                    <constraint firstItem="RFa-SS-wYM" firstAttribute="leading" secondItem="Do0-d8-cn8" secondAttribute="leading" constant="12" id="C5L-v6-I4O"/>
+                                    <constraint firstItem="hiS-nM-Ynb" firstAttribute="top" secondItem="Do0-d8-cn8" secondAttribute="top" constant="23" id="Cci-5w-Etu"/>
+                                    <constraint firstItem="RFa-SS-wYM" firstAttribute="top" secondItem="Do0-d8-cn8" secondAttribute="top" constant="33" id="DVo-27-jaJ"/>
                                     <constraint firstAttribute="height" constant="71" id="MPU-uM-s2d"/>
-                                    <constraint firstItem="hiS-nM-Ynb" firstAttribute="top" secondItem="Do0-d8-cn8" secondAttribute="top" constant="32" id="bh2-Qd-Iev"/>
                                 </constraints>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ceI-3u-7Bp">
@@ -437,7 +463,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6I1-Xr-omU">
                                 <rect key="frame" x="48" y="131" width="225" height="39"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -446,7 +472,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fv5-ZW-aKt">
                                         <rect key="frame" x="79" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="ξЖЗ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -456,7 +482,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouR-KZ-vnk">
                                         <rect key="frame" x="141" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="εїз">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -466,7 +492,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNr-JA-Odg">
                                         <rect key="frame" x="211" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="▓">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -476,7 +502,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSH-1e-XaN">
                                         <rect key="frame" x="9" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="βε">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -502,7 +528,7 @@
                                             <constraint firstAttribute="height" constant="30" id="2dL-vT-2M9"/>
                                             <constraint firstAttribute="width" constant="30" id="9RC-Su-dCo"/>
                                         </constraints>
-                                        <state key="normal" image="backWhiteIcon.png">
+                                        <state key="normal" image="backWhite.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -522,7 +548,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhN-IT-PMs">
                                         <rect key="frame" x="79" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="ℜ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -532,7 +558,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afy-Rm-LkE">
                                         <rect key="frame" x="141" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="卐">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -542,7 +568,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QAn-gb-qAJ">
                                         <rect key="frame" x="211" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="♬">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -552,7 +578,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaZ-va-yZT">
                                         <rect key="frame" x="9" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="♚">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -586,7 +612,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MoS-ni-99J">
                                         <rect key="frame" x="79" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="ξЖЗ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -596,7 +622,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJs-D6-0Id">
                                         <rect key="frame" x="141" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="ღ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -606,7 +632,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jun-kf-nYx">
                                         <rect key="frame" x="211" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="▓">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -616,7 +642,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8Q-Yb-wX2">
                                         <rect key="frame" x="9" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="λ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -632,7 +658,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8N-pZ-byx">
                                         <rect key="frame" x="79" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="ⓓ">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -642,8 +668,8 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uza-8R-c7L">
                                         <rect key="frame" x="141" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
-                                        <state key="normal" title="εїз">
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
+                                        <state key="normal" title="\uE007">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -652,7 +678,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWx-bu-Z1F">
                                         <rect key="frame" x="211" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="╠">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -662,7 +688,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0q-fa-uXp">
                                         <rect key="frame" x="9" y="14" width="50" height="32"/>
-                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="arkenstone-symbol-font" family="arkenstone-symbol-font" pointSize="19"/>
                                         <state key="normal" title="░">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -719,14 +745,125 @@
             </objects>
             <point key="canvasLocation" x="982" y="200"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="Idd-br-cYH">
+            <objects>
+                <viewController id="Jwa-Ue-uXc" customClass="settingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="B2O-Ja-e1c"/>
+                        <viewControllerLayoutGuide type="bottom" id="3FJ-nq-ovd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="R39-ym-ldJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIs-XN-ELw">
+                                <rect key="frame" x="119" y="334" width="82" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7tb-St-vy7"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="82" id="NJ6-XD-9ho"/>
+                                    <constraint firstAttribute="width" constant="82" id="UyT-Hv-a8x"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="V4u-fu-hPf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveAction:" destination="Jwa-Ue-uXc" eventType="touchUpInside" id="S2n-FL-jHg"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G7E-gl-zdp">
+                                <rect key="frame" x="-4" y="0.0" width="328" height="71"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Fb-Pc-4up">
+                                        <rect key="frame" x="23" y="23" width="83" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="83" id="9cC-II-OEb"/>
+                                            <constraint firstAttribute="height" constant="48" id="VeV-kF-Mva"/>
+                                        </constraints>
+                                        <state key="normal" title="Back">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="6Su-gz-3dD" kind="modal" modalTransitionStyle="crossDissolve" id="o9T-Gy-0Q4"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backWhite.png" translatesAutoresizingMaskIntoConstraints="NO" id="Rxx-Yv-vxh">
+                                        <rect key="frame" x="12" y="33" width="30" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="DW4-OU-QSg"/>
+                                            <constraint firstAttribute="height" constant="27" id="aHo-uD-aNA"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="71" id="9hx-cS-Kmg"/>
+                                    <constraint firstItem="Rxx-Yv-vxh" firstAttribute="leading" secondItem="G7E-gl-zdp" secondAttribute="leading" constant="12" id="JIA-rN-qZP"/>
+                                    <constraint firstItem="2Fb-Pc-4up" firstAttribute="top" secondItem="G7E-gl-zdp" secondAttribute="top" constant="23" id="LI3-RI-iU5"/>
+                                    <constraint firstItem="2Fb-Pc-4up" firstAttribute="leading" secondItem="G7E-gl-zdp" secondAttribute="leading" constant="23" id="S1r-ml-qaL"/>
+                                    <constraint firstItem="Rxx-Yv-vxh" firstAttribute="top" secondItem="G7E-gl-zdp" secondAttribute="top" constant="33" id="wU1-7a-4CR"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change only if instructed by the instructor" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0e9-kX-nXR">
+                                <rect key="frame" x="37" y="127" width="247" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="V4G-29-fEp"/>
+                                    <constraint firstAttribute="width" constant="247" id="l9A-NS-WsW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bDv-me-EMR">
+                                <rect key="frame" x="40" y="220" width="240" height="79"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="6cZ-8Q-HuV"/>
+                                    <constraint firstAttribute="height" constant="79" id="P0k-lr-z9c"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="bDv-me-EMR" secondAttribute="centerX" id="5CL-4k-mwP"/>
+                            <constraint firstAttribute="centerX" secondItem="0e9-kX-nXR" secondAttribute="centerX" id="6gV-w2-DYk"/>
+                            <constraint firstItem="G7E-gl-zdp" firstAttribute="leading" secondItem="R39-ym-ldJ" secondAttribute="leadingMargin" constant="-20" id="CsD-Ex-phd"/>
+                            <constraint firstItem="0e9-kX-nXR" firstAttribute="top" secondItem="G7E-gl-zdp" secondAttribute="bottom" constant="56" id="GQb-vy-tUP"/>
+                            <constraint firstItem="bDv-me-EMR" firstAttribute="top" secondItem="0e9-kX-nXR" secondAttribute="bottom" constant="28" id="RDg-1P-wPx"/>
+                            <constraint firstAttribute="centerX" secondItem="lIs-XN-ELw" secondAttribute="centerX" id="Tce-ZA-rK3"/>
+                            <constraint firstAttribute="centerX" secondItem="G7E-gl-zdp" secondAttribute="centerX" id="mSz-w7-bhE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="G7E-gl-zdp" secondAttribute="trailing" constant="-20" id="p8S-rt-0tD"/>
+                            <constraint firstItem="G7E-gl-zdp" firstAttribute="top" secondItem="R39-ym-ldJ" secondAttribute="topMargin" id="rPc-Al-s6j"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addressField" destination="bDv-me-EMR" id="zln-hF-EZh"/>
+                        <outlet property="navigationView" destination="G7E-gl-zdp" id="pfV-XP-5ld"/>
+                        <outlet property="saveButton" destination="lIs-XN-ELw" id="NLO-L3-DMe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eY2-6M-V76" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-166" y="200"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="backWhiteIcon.png" width="50" height="50"/>
+        <image name="backWhite.png" width="50" height="50"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="o9T-Gy-0Q4"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="0.27382681510000001" blue="0.1387368849" alpha="1" colorSpace="calibratedRGB"/>
 </document>

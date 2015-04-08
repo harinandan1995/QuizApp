@@ -34,6 +34,26 @@
     [questionView addGestureRecognizer:tap1];
     [navigationView addGestureRecognizer:tap2];
     
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(nextAction:)];
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(prevAction:)];
+    
+    // Setting the swipe direction.
+    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    
+    // Adding the swipe gesture on image view
+    [quesTable addGestureRecognizer:swipeLeft];
+    [quesTable addGestureRecognizer:swipeRight];
+    
+    [self.view addGestureRecognizer:swipeLeft];
+    [self.view addGestureRecognizer:swipeRight];
+    
+    timeLabel.text = @"1:03:05";
+    timeLabel.layer.masksToBounds = YES;
+    timeLabel.backgroundColor = [GlobalFn getColor:0];
+    timeLabel.textColor = [UIColor whiteColor];
+    timeLabel.layer.cornerRadius = 28;
+    
     ansView.layer.masksToBounds = YES;
     ansView.layer.borderColor = [[GlobalFn getColor:0] CGColor];
     ansView.layer.borderWidth = 1;
@@ -45,24 +65,28 @@
     prevButton.enabled = NO;
     questionArray = [[NSMutableArray alloc] init];
     
+    [NSTimer scheduledTimerWithTimeInterval:1.0
+                                     target:self
+                                   selector:@selector(timerMethod)
+                                   userInfo:nil
+                                    repeats:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveNotification:)
                                                  name:@"backgroundNotification"
                                                object:nil];
     
-    shufAns = @"1";
-    shufQues = @"1";
-    NSLog(@"%@ - %@",_quizID,_uniqueID);
     NSDictionary *parameters = @{@"quiz_id":_quizID,@"uniq_id":_uniqueID,@"key":@"123"};
     NSLog(@"Param : %@",parameters);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/quiz/get" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+    [manager POST:[NSString stringWithFormat:@"%@/quiz/get",[GlobalFn getAddress]] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
         NSLog(@"JSON: %@", responseObject);
         NSDictionary *help = (NSDictionary *) responseObject;
         NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
         shufAns = [NSString stringWithFormat:@"%@",help[@"randomize_options"]];
         shufQues = [NSString stringWithFormat:@"%@",help[@"randomize_questions"]];
+        timeLeft = [help[@"quiz_duration"] integerValue];
+        timeLabel.text = [self timeFormatted:timeLeft];
         if ([errormsg isEqualToString:@"0"]) {
             if(![help[@"message"] isEqualToString:@"Successfully transferred the quiz"]) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
@@ -75,6 +99,7 @@
             NSMutableArray *help2 = (NSMutableArray *)help[@"questions"];
             for (NSDictionary *help3 in help2) {
                 NSMutableDictionary *help4 = [help3 mutableCopy];
+                help4[@"question"] = [help4[@"question"] stringByReplacingOccurrencesOfString:@"\\n" withString:@"\r\n"];
                 if ([help4[@"type"] integerValue] <= 2) {
                     if ([shufAns isEqualToString:@"1"]) {
                         NSMutableArray *optShuf = [help4[@"options"] mutableCopy];
@@ -85,7 +110,6 @@
                             [optShuf exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
                         }
                         [help4 setObject:optShuf forKey:@"options"];
-                        //NSLog(@"%@",help4[@"options"]);
                     }
                 }
                 NSMutableArray *answerArray = [[NSMutableArray alloc] init];
@@ -114,6 +138,9 @@
                 ansView.hidden = YES;
             }
             else {
+                if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==3) [ansView setKeyboardType:UIKeyboardTypeNumberPad];
+                if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==4) [ansView setKeyboardType:UIKeyboardTypeDecimalPad];
+                if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==5) [ansView setKeyboardType:UIKeyboardTypeDefault];
                 quesTable.hidden = YES;
                 ansView.hidden = NO;
                 ansView.text = @"";
@@ -121,15 +148,28 @@
             [quesTable reloadData];
         }
         else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                            message:@"Check your internet connection"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Retry"
+                                                  otherButtonTitles:nil];
+            alert.tag = 23;
+            [alert show];
             [self.view makeToast:help[@"message"]];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                        message:@"Check your internet connection"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Retry"
+                                              otherButtonTitles:nil];
+        alert.tag = 23;
+        [alert show];
         [self.view makeToast:@"Check your internet connection"];
     }];
     
     for (int i=0; i<[questionArray count]; i++) {
-        NSLog(@"asdasd");
         if ([questionArray[i][@"type"] integerValue] <= 2) {
             if ([shufAns isEqualToString:@"1"]) {
                 NSMutableArray *optShuf = [questionArray[i][@"options"] mutableCopy];
@@ -144,7 +184,6 @@
             }
         }
     }
-    
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -155,12 +194,29 @@
     [ansView resignFirstResponder];
 }
 
+-(void) timerMethod{
+    if(timeLeft > 0)timeLeft --;
+    timeLabel.text = [self timeFormatted:timeLeft];
+}
+
+- (NSString *)timeFormatted:(int)totalSeconds
+{
+    
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds / 60) % 60;
+    int hours = totalSeconds / 3600;
+    
+    return [NSString stringWithFormat:@"%01d:%02d:%02d",hours, minutes, seconds];
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 - (void) receiveNotification:(NSNotification *) notification{
     NSDictionary *parameters = @{@"quiz_id":_quizID,@"uniq_id":_uniqueID,@"key":@"123",@"message":[NSString stringWithFormat:@"%@ went background",_stu_name]};
     NSLog(@"Param : %@",parameters);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/add-log" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+    [manager POST:[NSString stringWithFormat:@"%@/add-log",[GlobalFn getAddress]] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
         NSLog(@"JSON: %@", responseObject);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
                                                         message:@"Warning : You went background, this event is logged to instructor"
@@ -211,20 +267,20 @@
     cell.selectButton.tag = indexPath.row;
     if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 1) {
         if([questionArray[[quesNo integerValue]][@"answer"] containsObject:[NSString stringWithFormat:@"%ld",(long)cell.selectButton.tag]]) {
-            cell.optionImage.image = [UIImage imageNamed:@"fullCircleIndigoIcon.png"];
+            cell.optionImage.image = [UIImage imageNamed:@"newMoonBlack.png"];
         }
         else {
-            cell.optionImage.image = [UIImage imageNamed:@"zeroCircleIndigoIcon.png"];
+            cell.optionImage.image = [UIImage imageNamed:@"fullMoonBlack.png"];
         }
         [cell.selectButton addTarget:self action:@selector(mcqButAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     else if ([questionArray[[quesNo integerValue]][@"type"] integerValue] == 2) {
         //if(cell.selectButton.tag == [questionArray[[quesNo integerValue]][@"answer"] integerValue]) {
         if([questionArray[[quesNo integerValue]][@"answer"] containsObject:[NSString stringWithFormat:@"%ld",(long)cell.selectButton.tag]]) {
-            cell.optionImage.image = [UIImage imageNamed:@"checkIndigoIcon.png"];
+            cell.optionImage.image = [UIImage imageNamed:@"checkedBlack.png"];
         }
         else {
-            cell.optionImage.image = [UIImage imageNamed:@"uncheckIndigoIcon.png"];
+            cell.optionImage.image = [UIImage imageNamed:@"uncheckedBlack.png"];
         }
         [cell.selectButton addTarget:self action:@selector(mcqButAction:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -255,6 +311,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -(IBAction)nextAction:(id)sender {
+    if(nextButton.hidden) return;
     [ansView resignFirstResponder];
     quesNo = [NSString stringWithFormat:@"%d",[quesNo integerValue]+1];
     if([quesNo integerValue] == [questionArray count]-1){
@@ -278,6 +335,9 @@
         ansView.hidden = YES;
     }
     else {
+        if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==3) [ansView setKeyboardType:UIKeyboardTypeNumberPad];
+        if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==4) [ansView setKeyboardType:UIKeyboardTypeDecimalPad];
+        if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==5) [ansView setKeyboardType:UIKeyboardTypeDefault];
         quesTable.hidden = YES;
         ansView.hidden = NO;
         if ([questionArray[[quesNo integerValue]][@"answer"] count]>0) {
@@ -290,12 +350,17 @@
     [quesTable reloadData];
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 -(IBAction)clearAction:(id)sender {
     questionArray[[quesNo integerValue]][@"answer"] = [[NSMutableArray alloc] init];
     [quesTable reloadData];
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 -(IBAction)prevAction:(id)sender {
+    if(prevButton.hidden) return;
     [ansView resignFirstResponder];
     quesNo = [NSString stringWithFormat:@"%d",[quesNo integerValue]-1];
     if([quesNo integerValue] == 0){
@@ -319,6 +384,9 @@
         ansView.hidden = YES;
     }
     else {
+        if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==3) [ansView setKeyboardType:UIKeyboardTypeNumberPad];
+        if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==4) [ansView setKeyboardType:UIKeyboardTypeDecimalPad];
+        if([questionArray[[quesNo integerValue]][@"type"] integerValue] ==5) [ansView setKeyboardType:UIKeyboardTypeDefault];
         quesTable.hidden = YES;
         ansView.hidden = NO;
         if ([questionArray[[quesNo integerValue]][@"answer"] count]>0) {
@@ -330,6 +398,8 @@
     }
     [quesTable reloadData];
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -(IBAction)submitAction:(id)sender {
     for(int i=0;i<[questionArray count];i++) {
@@ -345,7 +415,117 @@
     
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if(alertView.tag == 23 && buttonIndex == 0){
+        NSDictionary *parameters = @{@"quiz_id":_quizID,@"uniq_id":_uniqueID,@"key":@"123"};
+        NSLog(@"Param : %@",parameters);
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        [manager POST:[NSString stringWithFormat:@"%@/quiz/get",[GlobalFn getAddress]] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+            NSLog(@"JSON: %@", responseObject);
+            NSDictionary *help = (NSDictionary *) responseObject;
+            NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];
+            shufAns = [NSString stringWithFormat:@"%@",help[@"randomize_options"]];
+            shufQues = [NSString stringWithFormat:@"%@",help[@"randomize_questions"]];
+            if ([errormsg isEqualToString:@"0"]) {
+                if(![help[@"message"] isEqualToString:@"Successfully transferred the quiz"]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                                    message:help[@"message"]
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                }
+                NSMutableArray *help2 = (NSMutableArray *)help[@"questions"];
+                for (NSDictionary *help3 in help2) {
+                    NSMutableDictionary *help4 = [help3 mutableCopy];
+                    if ([help4[@"type"] integerValue] <= 2) {
+                        if ([shufAns isEqualToString:@"1"]) {
+                            NSMutableArray *optShuf = [help4[@"options"] mutableCopy];
+                            NSUInteger count = [optShuf count];
+                            for (NSUInteger i = 0; i < count; ++i) {
+                                NSInteger remainingCount = count - i;
+                                NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+                                [optShuf exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+                            }
+                            [help4 setObject:optShuf forKey:@"options"];
+                            //NSLog(@"%@",help4[@"options"]);
+                        }
+                    }
+                    NSMutableArray *answerArray = [[NSMutableArray alloc] init];
+                    [help4 setObject:answerArray forKey:@"answer"];
+                    [questionArray addObject:help4];
+                }
+                if ([shufQues isEqualToString:@"1"]) {
+                    NSUInteger count = [questionArray count];
+                    for (NSUInteger i = 0; i < count; ++i) {
+                        NSInteger remainingCount = count - i;
+                        NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+                        [questionArray exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+                    }
+                    qNoLabel.text = [NSString stringWithFormat:@"Question %ld",(long)[quesNo integerValue]+1];
+                }
+                else {
+                    qNoLabel.text = [NSString stringWithFormat:@"Question %@",questionArray[[quesNo integerValue]][@"question_no"]];
+                }
+                
+                questionView.text = [NSString stringWithFormat:@"%@",questionArray[[quesNo integerValue]][@"question"]];
+                questionView.backgroundColor = [GlobalFn getColor:0];
+                [questionView setFont:[UIFont systemFontOfSize:17]];
+                questionView.textColor = [UIColor whiteColor];
+                if ([questionArray[[quesNo integerValue]][@"type"] integerValue] <= 2) {
+                    quesTable.hidden = NO;
+                    ansView.hidden = YES;
+                }
+                else {
+                    quesTable.hidden = YES;
+                    ansView.hidden = NO;
+                    ansView.text = @"";
+                }
+                [quesTable reloadData];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                                message:@"Check your internet connection"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Retry"
+                                                      otherButtonTitles:nil];
+                alert.tag = 23;
+                [alert show];
+                [self.view makeToast:help[@"message"]];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                            message:@"Check your internet connection"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Retry"
+                                                  otherButtonTitles:nil];
+            alert.tag = 23;
+            [alert show];
+            [self.view makeToast:@"Check your internet connection"];
+        }];
+        
+        for (int i=0; i<[questionArray count]; i++) {
+            NSLog(@"asdasd");
+            if ([questionArray[i][@"type"] integerValue] <= 2) {
+                if ([shufAns isEqualToString:@"1"]) {
+                    NSMutableArray *optShuf = [questionArray[i][@"options"] mutableCopy];
+                    NSUInteger count = [optShuf count];
+                    for (NSUInteger i = 0; i < count; ++i) {
+                        NSInteger remainingCount = count - i;
+                        NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+                        [optShuf exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+                    }
+                    [questionArray[i] setObject:optShuf forKey:@"options"];
+                    NSLog(@"%@",questionArray[i][@"options"]);
+                }
+            }
+        }
+ 
+    }
     if (buttonIndex == 1) {
         NSMutableArray *finalAns = [[NSMutableArray alloc] init];
         for(int i=0;i<[questionArray count];i++) {
@@ -370,7 +550,7 @@
         NSString *submission = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         [submission stringByReplacingOccurrencesOfString:@"\"" withString:@""];
         NSLog(@"DATA : %@",submission);
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://bodhitree3.cse.iitb.ac.in:8080/api/quiz/submit?key=123&uniq_id=%@&quiz_id=%@",_uniqueID,_quizID]]];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/quiz/submit?key=123&uniq_id=%@&quiz_id=%@",[GlobalFn getAddress],_uniqueID,_quizID]]];
         [request setHTTPBody:jsonData];
         [request setHTTPMethod:@"POST"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

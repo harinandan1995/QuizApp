@@ -94,10 +94,10 @@
 +(UIColor *)getColor:(NSInteger)num{
     switch (num) {
         case 0:
-            return [self colorWithHexString:@"3949AB"]; // Background [teal 500]
+            return [self colorWithHexString:@"323232"]; // Background [teal 500]
             break;
         case 1:
-            return [self colorWithHexString:@"283593"]; // Placeholder, button [teal 900]
+            return [self colorWithHexString:@"191919"]; // Placeholder, button [teal 900]
             break;
         case 2:
             return [self colorWithHexString:@"424242"]; // Background Color
@@ -110,6 +110,10 @@
             break;
     }
     return [UIColor whiteColor];
+}
+
++ (NSString*)getAddress{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"serveraddress"];
 }
 
 @end

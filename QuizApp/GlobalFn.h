@@ -16,5 +16,6 @@
 
 + (UIColor *)getColor:(NSInteger)string;
 + (UIColor*)colorWithHexString:(NSString*)hex;
++ (NSString*)getAddress;
 
 @end

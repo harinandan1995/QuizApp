@@ -41,7 +41,7 @@
     [self.view addGestureRecognizer:tap];
     loading.hidden = YES;
     
-    quizIdField.text = @"CS101:5";
+    quizIdField.text = @"CS101:4";
 }
 
 -(void)dismissKeyboard {
@@ -67,7 +67,7 @@
         NSLog(@"Param : %@",parameters);
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-        [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/quiz" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+        [manager POST:[NSString stringWithFormat:@"%@/quiz",[GlobalFn getAddress]] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
             NSLog(@"JSON: %@", responseObject);
             NSDictionary *help = (NSDictionary *) responseObject;
             NSString *errormsg = [NSString stringWithFormat:@"%@",help[@"error"]];

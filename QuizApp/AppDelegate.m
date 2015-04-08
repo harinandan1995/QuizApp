@@ -17,6 +17,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSString *serverAdd = [[NSUserDefaults standardUserDefaults] objectForKey:@"serveraddress"];
+    NSLog(@"%@",serverAdd);
+    if(serverAdd==nil){
+        [[NSUserDefaults standardUserDefaults] setObject:@"http://bodhitree3.cse.iitb.ac.in:8080/api"
+                                                  forKey:@"serveraddress"];
+    }
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"serveraddress"]);
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
     return YES;
 }
 
@@ -27,8 +37,25 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     NSLog(@"background");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"backgroundNotification" object:self];
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
     
+    if (localNotif == nil)
+        return;
+    localNotif.fireDate = [NSDate date];
+    localNotif.timeZone = [NSTimeZone defaultTimeZone];
+    
+    // Notification details
+    localNotif.alertBody = @"You went background this will be reported to the instructor.";
+    // Set the action button
+    localNotif.alertAction = @"View List";
+    
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"backgroundNotification"
+     object:self];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }

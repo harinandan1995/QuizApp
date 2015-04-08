@@ -29,7 +29,7 @@
     NSLog(@"Param : %@",parameters);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager POST:@"http://bodhitree3.cse.iitb.ac.in:8080/api/quiz/summary" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
+    [manager POST:[NSString stringWithFormat:@"%@/quiz/summary",[GlobalFn getAddress]] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject){
         NSLog(@"JSON: %@", responseObject);
         NSDictionary *help = (NSDictionary *) responseObject;
         NSString *summary = @"";

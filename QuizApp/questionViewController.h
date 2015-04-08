@@ -24,6 +24,8 @@
     NSString *shufQues;
     NSMutableArray *arrayHelp;
     NSMutableArray *questionArray;
+    IBOutlet UILabel *timeLabel;
+    int timeLeft;
 }
 
 @property (nonatomic,strong) NSString *uniqueID;
@@ -36,5 +38,6 @@
 -(IBAction)nextAction:(id)sender;
 -(IBAction)prevAction:(id)sender;
 -(IBAction)textEditingAction:(id)sender;
+-(NSString *)timeFormatted:(int)totalSeconds;
 
 @end
